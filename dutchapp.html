@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dutch A2 Fluency Roadmap — 50 Days</title>
+    <style>
+        :root {
+            --orange: #FF6B35;
+            --dark-orange: #E85D04;
+            --blue: #004E89;
+            --light-blue: #1A659E;
+            --cream: #F7F5F3;
+            --white: #FFFFFF;
+            --text: #2D3142;
+            --text-light: #5C5C5C;
+            --success: #2ECC71;
+            --warning: #F39C12;
+            --border: #E0E0E0;
+            --shadow: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--light-blue) 100%);
+            color: var(--white);
+            padding: 2rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: var(--orange);
+            border-radius: 50%;
+            opacity: 0.15;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+            position: relative;
+        }
+
+        .progress-section {
+            background: var(--white);
+            padding: 1.5rem;
+            margin: -1.5rem 1rem 1rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .stat-box {
+            text-align: center;
+            flex: 1;
+            min-width: 80px;
+        }
+
+        .stat-box .number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--orange);
+        }
+
+        .stat-box .label {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .progress-bar-container {
+            background: var(--border);
+            border-radius: 10px;
+            height: 12px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--orange), var(--dark-orange));
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0 1rem;
+            max-width: 800px;
+            margin: 0 auto 1rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .nav-tab {
+            flex: 1;
+            min-width: 100px;
+            padding: 0.75rem 0.5rem;
+            border: none;
+            background: var(--white);
+            color: var(--text-light);
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            box-shadow: var(--shadow);
+            white-space: nowrap;
+        }
+
+        .nav-tab:hover { transform: translateY(-2px); }
+
+        .nav-tab.active {
+            background: var(--orange);
+            color: var(--white);
+        }
+
+        .nav-tab .phase-label {
+            display: block;
+            font-size: 0.7rem;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem 2rem;
+        }
+
+        .phase-header {
+            background: var(--white);
+            padding: 1.25rem;
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .phase-header h2 {
+            color: var(--blue);
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .phase-header p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .day-card {
+            background: var(--white);
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .day-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .day-card.completed {
+            border-left-color: var(--success);
+            opacity: 0.85;
+        }
+
+        .day-card.completed .day-header {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+        }
+
+        .day-card.grammar-day { border-left-color: var(--orange); }
+
+        .day-header {
+            padding: 1rem 1.25rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .day-header:hover {
+            background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+        }
+
+        .checkbox-wrapper { position: relative; }
+
+        .day-checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: var(--success);
+        }
+
+        .day-number {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--blue);
+            min-width: 60px;
+        }
+
+        .day-title {
+            flex: 1;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .day-badges {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .badge-grammar { background: #FFF3E0; color: var(--dark-orange); }
+        .badge-convo { background: #E3F2FD; color: var(--blue); }
+        .badge-time { background: #F3E5F5; color: #7B1FA2; }
+
+        .expand-icon {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            transition: transform 0.3s;
+        }
+
+        .day-card.expanded .expand-icon { transform: rotate(180deg); }
+
+        .day-content {
+            display: none;
+            padding: 1.25rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .day-card.expanded .day-content {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .activity-block {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--cream);
+            border-radius: 12px;
+        }
+
+        .activity-block:last-child { margin-bottom: 0; }
+
+        .activity-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--blue);
+        }
+
+        .activity-icon { font-size: 1.2rem; }
+
+        .activity-time {
+            margin-left: auto;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            background: var(--white);
+            padding: 0.2rem 0.5rem;
+            border-radius: 8px;
+        }
+
+        .activity-desc {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .activity-desc ul {
+            margin-left: 1.2rem;
+            margin-top: 0.3rem;
+        }
+
+        .activity-desc li { margin-bottom: 0.2rem; }
+
+        .timer-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            background: var(--blue);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .timer-btn:hover {
+            background: var(--light-blue);
+            transform: scale(1.05);
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            animation: modalPop 0.3s ease;
+        }
+
+        @keyframes modalPop {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal h3 {
+            color: var(--blue);
+            margin-bottom: 1rem;
+        }
+
+        .timer-display {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--orange);
+            font-variant-numeric: tabular-nums;
+            margin: 1rem 0;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .timer-controls button {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-start { background: var(--success); color: white; }
+        .btn-pause { background: var(--warning); color: white; }
+        .btn-reset { background: var(--border); color: var(--text); }
+        .btn-close { background: var(--text); color: white; }
+
+        .timer-controls button:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        .timer-presets {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .preset-btn {
+            padding: 0.3rem 0.8rem;
+            border: 2px solid var(--border);
+            background: var(--white);
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .preset-btn:hover, .preset-btn.active {
+            border-color: var(--orange);
+            color: var(--orange);
+        }
+
+        .tools-section { margin-top: 2rem; }
+
+        .tool-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .tool-card h3 {
+            color: var(--blue);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tool-card ul { margin-left: 1.2rem; }
+
+        .tool-card li {
+            margin-bottom: 0.4rem;
+            color: var(--text-light);
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .checklist-item:last-child { border-bottom: none; }
+
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--orange);
+            cursor: pointer;
+        }
+
+        .checklist-item label { cursor: pointer; flex: 1; }
+
+        .checklist-item.checked label {
+            text-decoration: line-through;
+            color: var(--text-light);
+        }
+
+        .motivation-box {
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .motivation-box .quote {
+            font-style: italic;
+            color: var(--dark-orange);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .motivation-box .author {
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+
+        .refresh-quote {
+            margin-top: 0.75rem;
+            padding: 0.4rem 1rem;
+            background: var(--white);
+            border: 2px solid var(--orange);
+            color: var(--orange);
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .refresh-quote:hover {
+            background: var(--orange);
+            color: var(--white);
+        }
+
+        .convo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        .convo-slot {
+            background: var(--cream);
+            border-radius: 12px;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.85rem;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .convo-slot.completed {
+            border-color: var(--success);
+            background: #e8f5e9;
+        }
+
+        .convo-slot.upcoming {
+            border-color: var(--orange);
+            background: #FFF3E0;
+        }
+
+        .convo-slot .day-num {
+            font-weight: 700;
+            color: var(--blue);
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.4rem; }
+            .day-header { flex-wrap: wrap; }
+            .day-badges { width: 100%; margin-top: 0.5rem; }
+            .timer-display { font-size: 3rem; }
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--cream); }
+        ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 4px; }
+
+        .streak-display {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: linear-gradient(135deg, #FF6B35, #E85D04);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🇳🇱 Dutch A2 Fluency Roadmap</h1>
+        <p>50 Days · Speaking First · Learn Dutch with Kim</p>
+        <div class="streak-display" id="streakDisplay">🔥 Streak: 0 days</div>
+    </div>
+
+    <div class="progress-section">
+        <div class="progress-stats">
+            <div class="stat-box">
+                <div class="number" id="completedDays">0</div>
+                <div class="label">Days Done</div>
+            </div>
+            <div class="stat-box">
+                <div class="number" id="grammarDone">0</div>
+                <div class="label">Grammar Lessons</div>
+            </div>
+            <div class="stat-box">
+                <div class="number" id="convoDone">0</div>
+                <div class="label">Conversations</div>
+            </div>
+            <div class="stat-box">
+                <div class="number" id="hoursTotal">0</div>
+                <div class="label">Hours Logged</div>
+            </div>
+        </div>
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-text" id="progressText">0% complete — Start with Day 1!</div>
+    </div>
+
+    <div class="nav-tabs" id="navTabs">
+        <button class="nav-tab active" data-phase="1">
+            Phase 1
+            <span class="phase-label">Days 1–10</span>
+        </button>
+        <button class="nav-tab" data-phase="2">
+            Phase 2
+            <span class="phase-label">Days 11–25</span>
+        </button>
+        <button class="nav-tab" data-phase="3">
+            Phase 3
+            <span class="phase-label">Days 26–40</span>
+        </button>
+        <button class="nav-tab" data-phase="4">
+            Phase 4
+            <span class="phase-label">Days 41–50</span>
+        </button>
+        <button class="nav-tab" data-phase="tools">
+            Tools & Tips
+            <span class="phase-label">Resources</span>
+        </button>
+    </div>
+
+    <div class="container" id="mainContainer"></div>
+
+    <div class="modal-overlay" id="timerModal">
+        <div class="modal">
+            <h3>⏱️ Study Timer</h3>
+            <div class="timer-presets">
+                <button class="preset-btn" data-min="15">15 min</button>
+                <button class="preset-btn" data-min="25">25 min</button>
+                <button class="preset-btn" data-min="30">30 min</button>
+                <button class="preset-btn active" data-min="45">45 min</button>
+                <button class="preset-btn" data-min="60">60 min</button>
+            </div>
+            <div class="timer-display" id="timerDisplay">45:00</div>
+            <div class="timer-controls">
+                <button class="btn-start" id="btnStart">Start</button>
+                <button class="btn-pause" id="btnPause" style="display:none;">Pause</button>
+                <button class="btn-reset" id="btnReset">Reset</button>
+                <button class="btn-close" id="btnClose">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const roadmapData = {
+            1: {
+                title: "The Thinking Shift",
+                subtitle: "Goal: Stop translating. Start narrating. Lock down present-tense work vocabulary.",
+                days: [
+                    { day: 1, grammar: true, convo: false, time: "2.5h", title: "Extended Work Self-Intro", 
+                      anki: "Reviews + 10 new sentence cards (30 min)",
+                      speaking: "Write 10 sentences introducing your role, company, and daily tasks. Speak them aloud 3× without reading. Focus on present tense.",
+                      listening: "Easy Dutch Episode 1 — Watch with Dutch subtitles first, then without." },
+                    { day: 2, grammar: false, convo: false, time: "2h", title: "Running Commentary",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "15 min narrating your morning routine in Dutch as you do it. Then 15 min shadowing a NOS Jeugdjournaal clip. Record yourself.",
+                      listening: "NOS Jeugdjournaal — 1 clip. Focus on catching 5 words you recognize." },
+                    { day: 3, grammar: true, convo: false, time: "2.5h", title: "Workspace Monologue",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "Write & speak 10 sentences describing your desk, tools, and colleagues using new Kim grammar. No English internal monologue.",
+                      listening: "DutchPod101 A2 Dialogue #1 — Shadow the first 30 seconds until perfect." },
+                    { day: 4, grammar: false, convo: true, time: "2.5h", title: "🗣️ KIMI CONVERSATION #1",
+                      anki: "Reviews (30 min)",
+                      speaking: "Roleplay: Meeting a new colleague. Prep: 5 min shadowing. During: Speak for 20–30 min in Dutch. Post: Note 3 new phrases I give you.",
+                      listening: "Easy Dutch Episode 2 — Note 3 new phrases to use in our next session." },
+                    { day: 5, grammar: false, convo: false, time: "2h", title: "Substitution Drill",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "Take 5 sentences from Kim L1–2. Swap the verb, subject, and object to make 15 new sentences. Speak aloud. No writing the new ones.",
+                      listening: "NOS Jeugdjournaal — Try to summarize the clip in 2 Dutch sentences after." },
+                    { day: 6, grammar: true, convo: false, time: "2.5h", title: "'Mijn Maandag' Monologue",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "3-minute unscripted monologue about a typical Monday. Record yourself. Do not write first. If you get stuck, describe the stuckness in Dutch.",
+                      listening: "DutchPod101 A2 Dialogue #2 — Write down 5 new words." },
+                    { day: 7, grammar: false, convo: false, time: "3h", title: "Think-in-Dutch Challenge",
+                      anki: "Reviews (30 min)",
+                      speaking: "2-hour block with phone/computer in Dutch. Narrate every action. Write down 5 new words you needed but didn't know.",
+                      listening: "Easy Dutch Episode 3 — Focus on intonation. Repeat sentences aloud." },
+                    { day: 8, grammar: true, convo: false, time: "2.5h", title: "Scenario Reactions",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "5 work situations (late, broken printer, missed email). React with 2 sentences each. Speak, don't write. Use 'Sorry, maar...' and 'Kan je me helpen?'",
+                      listening: "Bart de Pau dialogue video — A2 level. Pause and repeat each line." },
+                    { day: 9, grammar: false, convo: true, time: "2.5h", title: "🗣️ KIMI CONVERSATION #2",
+                      anki: "Reviews (30 min)",
+                      speaking: "Roleplay: Coffee break chat (weekend plans & hobbies). Bring 3 questions to ask me. Focus on fluidity over accuracy.",
+                      listening: "Zeg het in het Nederlands Episode 1 — Note phrases about hobbies." },
+                    { day: 10, grammar: false, convo: false, time: "2h", title: "Freewrite + Retell",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "Write 100 words 'Mijn baan'. Read once. Then retell it aloud for 90 seconds without the text. Record. Compare: what did you forget?",
+                      listening: "NOS Jeugdjournaal — Listen for numbers and times." }
+                ]
+            },
+            2: {
+                title: "Building Complexity",
+                subtitle: "Goal: Master past tense, comparisons, and opinions. Begin storytelling.",
+                days: [
+                    { day: 11, grammar: true, convo: false, time: "2.5h", title: "Yesterday's Story",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "Tell a 2-minute story about yesterday at work using perfectum (present perfect). Minimum 5 sentences. Use 'gisteren', 'al', 'nog niet'.",
+                      listening: "Easy Dutch Episode 4 — Note how natives use past tense." },
+                    { day: 12, grammar: false, convo: false, time: "2h", title: "Shadow & Swap",
+                      anki: "Reviews (30 min)",
+                      speaking: "Shadow a 2-min podcast clip. Then swap 3 words per sentence and repeat aloud. Focus on natural rhythm.",
+                      listening: "DutchPod101 A2 Dialogue #3 — Shadow entire dialogue." },
+                    { day: 13, grammar: true, convo: false, time: "2.5h", title: "Comparison Drill",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "Compare two projects, two colleagues, or two offices. Use er/est and meer/mest. Speak 10 sentences. Example: 'Mijn oude kantoor was groter dan dit kantoor.'",
+                      listening: "Echt Gebeurd (slow episode) — Pick one marked 'makkelijk'." },
+                    { day: 14, grammar: false, convo: true, time: "2.5h", title: "🗣️ KIMI CONVERSATION #3",
+                      anki: "Reviews (30 min)",
+                      speaking: "Roleplay: Explaining a tech problem to IT support. Use 'het werkt niet', 'er is een fout', 'kunnen jullie...?'",
+                      listening: "Zeg het in het Nederlands Episode 2 — Note problem-solving phrases." },
+                    { day: 15, grammar: true, convo: false, time: "2.5h", title: "Meeting Monologue",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "3 minutes: 'Mijn laatste vergadering'. Who spoke? What was decided? Use 'zei dat', 'besloten om', 'volgende stap'.",
+                      listening: "Easy Dutch Episode 5 — Focus on transition words." },
+                    { day: 16, grammar: false, convo: false, time: "2h", title: "Modal Verb Blitz",
+                      anki: "Reviews (30 min)",
+                      speaking: "10 sentences using kunnen/moeten/willen/zullen/mogen about work tasks. No writing. Say them, record, listen back.",
+                      listening: "NOS Jeugdjournaal — Catch 3 modal verbs in context." },
+                    { day: 17, grammar: false, convo: false, time: "2h", title: "Freewrite + Retell",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "150 words about a work success. Retell in 2 minutes without notes. Use 'uiteindelijk', 'gelukkig', 'het was moeilijk maar...'",
+                      listening: "DutchPod101 A2 Dialogue #4 — Note success/challenge phrases." },
+                    { day: 18, grammar: true, convo: false, time: "2.5h", title: "Self-Debate",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "Argue both sides for 3 minutes: 'Thuiswerken is beter dan op kantoor.' Use 'enerzijds... anderzijds', 'maar', 'daarom'.",
+                      listening: "Bart de Pau dialogue — Focus on opinion expressions." },
+                    { day: 19, grammar: false, convo: true, time: "2.5h", title: "🗣️ KIMI CONVERSATION #4",
+                      anki: "Reviews (30 min)",
+                      speaking: "Roleplay: Asking a colleague for help on a deadline. Use polite forms: 'Zou je me kunnen helpen met...?', 'Ik zou het erg waarderen als...'",
+                      listening: "Zeg het in het Nederlands Episode 3 — Note polite request forms." },
+                    { day: 20, grammar: true, convo: false, time: "2.5h", title: "Character Study",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "Describe a real colleague in detail (appearance + personality + habits). 2 minutes. Use 'hij/zij is altijd...', 'meestal...', 'soms...'",
+                      listening: "Easy Dutch Episode 6 — Note descriptive adjectives." },
+                    { day: 21, grammar: false, convo: false, time: "2h", title: "Running Commentary",
+                      anki: "Reviews (30 min)",
+                      speaking: "Afternoon routine narration. Focus on connecting sentences with en, maar, want, dus. Minimum 20 connected sentences.",
+                      listening: "Echt Gebeurd — Story episode. Note how they connect events." },
+                    { day: 22, grammar: false, convo: false, time: "2h", title: "Voice Memo",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "Record a 3-minute voice memo 'Mijn week' as if telling a friend. Don't script. If you make a mistake, keep going in Dutch.",
+                      listening: "NOS Jeugdjournaal — Summarize the main story aloud." },
+                    { day: 23, grammar: true, convo: false, time: "2.5h", title: "Future Plans",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "10 sentences about next week/month at work using gaan and zullen. Mix with present tense for scheduled events.",
+                      listening: "DutchPod101 A2 Dialogue #5 — Note future constructions." },
+                    { day: 24, grammar: false, convo: true, time: "2.5h", title: "🗣️ KIMI CONVERSATION #5",
+                      anki: "Reviews (30 min)",
+                      speaking: "Roleplay: Making weekend plans with a colleague. Use 'Laten we...', 'Wat denk je van...?', 'Ik heb zin om...'",
+                      listening: "Easy Dutch Episode 7 — Note social invitation phrases." },
+                    { day: 25, grammar: true, convo: false, time: "2.5h", title: "Elevator Pitch",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "Explain your job to a stranger in 60 seconds. Time yourself. Do it 3 times, improving fluency each round. No notes on round 3.",
+                      listening: "Zeg het in het Nederlands Episode 4 — Note professional vocabulary." }
+                ]
+            },
+            3: {
+                title: "Fluency Pressure",
+                subtitle: "Goal: Reduce hesitation. Use conditionals, complex clauses, and professional language under time pressure.",
+                days: [
+                    { day: 26, grammar: false, convo: false, time: "2h", title: "Speed Drill",
+                      anki: "Reviews (30 min)",
+                      speaking: "5 topics, 1 minute each without stopping: My city, my boss, last holiday, tomorrow, food. If you run out of words, describe your confusion.",
+                      listening: "NOS Journaal (short segment) — Main news, not kids version." },
+                    { day: 27, grammar: true, convo: false, time: "2.5h", title: "If-Then Scenarios",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "5 work hypotheticals. 'Als de server uitvalt, dan...' Speak 2 sentences each. Use 'als', 'dan', 'misschien', 'waarschijnlijk'.",
+                      listening: "DutchPod101 A2 Dialogue #6 — Note conditional structures." },
+                    { day: 28, grammar: false, convo: false, time: "2h", title: "Perfect Shadow",
+                      anki: "Reviews (30 min)",
+                      speaking: "Shadow a 3-min clip until you match speed and intonation perfectly. Record comparison. Focus on sentence stress, not just words.",
+                      listening: "Easy Dutch Episode 8 — Shadow the entire episode." },
+                    { day: 29, grammar: false, convo: true, time: "2.5h", title: "🗣️ KIMI CONVERSATION #6",
+                      anki: "Reviews (30 min)",
+                      speaking: "Roleplay: 2-minute standup meeting update on your current project. Use project vocabulary: 'voortgang', 'deadline', 'uitdaging', 'oplossing'.",
+                      listening: "Zeg het in het Nederlands Episode 5 — Note professional update language." },
+                    { day: 30, grammar: true, convo: false, time: "2.5h", title: "Polite Complaint",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "Complain about a work issue using 'Ik zou graag willen...', 'Het spijt me, maar...', 'Is er een mogelijkheid om...?' 3 different complaints.",
+                      listening: "Echt Gebeurd — Note how people express frustration politely." },
+                    { day: 31, grammar: false, convo: false, time: "2h", title: "No-Prep Monologue",
+                      anki: "Reviews (30 min)",
+                      speaking: "3 minutes on 'De toekomst van mijn werk'. No notes allowed. Use future tense, comparisons, and one past reference.",
+                      listening: "NOS Jeugdjournaal — Predict what the next story will be about." },
+                    { day: 32, grammar: false, convo: false, time: "2h", title: "Email to Speech",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "Write a short work email. Read it. Then summarize it aloud in different words. Then summarize it again even more simply.",
+                      listening: "DutchPod101 A2 Dialogue #7 — Note formal vs informal tone." },
+                    { day: 33, grammar: true, convo: false, time: "2.5h", title: "Defend the Opinion",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "Pick a controversial work topic. Defend it for 2 minutes. Then argue against it for 2 minutes. Use 'omdat', 'daarom', 'hoewel', 'desondanks'.",
+                      listening: "Easy Dutch Episode 9 — Note opinion markers." },
+                    { day: 34, grammar: false, convo: true, time: "2.5h", title: "🗣️ KIMI CONVERSATION #7",
+                      anki: "Reviews (30 min)",
+                      speaking: "Roleplay: Basic job interview questions. 'Waarom wil je hier werken?', 'Wat zijn je sterke punten?', 'Waar zie je jezelf over 5 jaar?'",
+                      listening: "Zeg het in het Nederlands Episode 6 — Note interview-style Q&A." },
+                    { day: 35, grammar: true, convo: false, time: "2.5h", title: "Process Narration",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "Explain a work process step-by-step: eerst, daarna, vervolgens, ten slotte. 2 minutes. Then explain it backwards (as a joke, for memory).",
+                      listening: "Bart de Pau — Process/description dialogue." },
+                    { day: 36, grammar: false, convo: false, time: "2h", title: "No-Notes Storytelling",
+                      anki: "Reviews (30 min)",
+                      speaking: "Tell the story of your best and worst work day. 3 minutes total. Use time markers: 'op een dag', 'plotseling', 'uiteindelijk', 'sindsdien'.",
+                      listening: "NOS Journaal — Note time sequencing in news stories." },
+                    { day: 37, grammar: false, convo: false, time: "3h", title: "Total Immersion Evening",
+                      anki: "Reviews (30 min)",
+                      speaking: "Cook, clean, shower — all internal narration in Dutch. Write 5 missing words after. Set phone to Dutch if not already.",
+                      listening: "Easy Dutch Episode 10 — Re-watch an old episode without subtitles." },
+                    { day: 38, grammar: false, convo: true, time: "2.5h", title: "🗣️ KIMI CONVERSATION #8",
+                      anki: "Reviews (30 min)",
+                      speaking: "Roleplay: Negotiating a project deadline with your manager. Use 'Is het mogelijk om...?', 'Wat als we...?', 'Ik stel voor dat...'",
+                      listening: "Echt Gebeurd — Note negotiation/persuasion language." },
+                    { day: 39, grammar: true, convo: false, time: "2.5h", title: "Intern Instructions",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "Give 5 instructions to an imaginary intern. Use imperative and polite forms: 'Kun je...?', 'Zou je... willen?', 'Vergeet niet om...'",
+                      listening: "DutchPod101 A2 Dialogue #8 — Note imperative forms." },
+                    { day: 40, grammar: false, convo: false, time: "2h", title: "Freewrite + Tense Mix",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "200 words 'Over 5 jaar...' Retell using present + future + 1 past reference. Focus on smooth tense switching.",
+                      listening: "Zeg het in het Nederlands Episode 7 — Note tense mixing." }
+                ]
+            },
+            4: {
+                title: "Integration & A2 Exit",
+                subtitle: "Goal: Natural flow. Mix all grammar automatically. Prepare for real-world use.",
+                days: [
+                    { day: 41, grammar: true, convo: false, time: "2.5h", title: "Rapid-Fire Q&A",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "Ask and answer 20 questions aloud as fast as possible. Who, what, where, why, how? Don't think — just speak. Record and count hesitations.",
+                      listening: "Easy Dutch Episode 11 — Note question patterns." },
+                    { day: 42, grammar: false, convo: false, time: "2h", title: "Unscripted Vlog",
+                      anki: "Reviews (30 min)",
+                      speaking: "Record a 5-minute vlog about your week. No script. One take. If you mess up, correct yourself in Dutch and continue.",
+                      listening: "NOS Jeugdjournaal — Summarize 3 stories in your own words." },
+                    { day: 43, grammar: false, convo: true, time: "2.5h", title: "🗣️ KIMI CONVERSATION #9",
+                      anki: "Reviews (30 min)",
+                      speaking: "Free conversation + intensive error correction. I will log your patterns. Focus: complex sentences with multiple clauses.",
+                      listening: "Zeg het in het Nederlands Episode 8 — Note complex sentence structures." },
+                    { day: 44, grammar: true, convo: false, time: "2.5h", title: "Both Sides",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "Roleplay a negotiation alone. Play yourself, then the other person. Switch every 30 seconds. Use different voices for each role.",
+                      listening: "DutchPod101 A2 Dialogue #9 — Note back-and-forth patterns." },
+                    { day: 45, grammar: false, convo: false, time: "2h", title: "Podcast Summary",
+                      anki: "Reviews (30 min)",
+                      speaking: "Listen to a 5-min podcast. Summarize it in 2 minutes in your own words. Then summarize it in 1 minute. Then in 30 seconds.",
+                      listening: "Echt Gebeurd — Any episode. Challenge yourself." },
+                    { day: 46, grammar: true, convo: false, time: "2.5h", title: "Describe the Data",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "Describe a fake graph or trend at work. stijgen, dalen, blijven gelijk. 2 minutes. Add opinions: 'Dit betekent dat...', 'Ik denk dat dit komt doordat...'",
+                      listening: "NOS Journaal — Note data/description language in news." },
+                    { day: 47, grammar: false, convo: false, time: "2h", title: "No-Prep Monologue",
+                      anki: "Reviews (30 min)",
+                      speaking: "'Nederland en mijn werk' — 3 minutes. Connect culture and career. Use personal anecdotes. No notes.",
+                      listening: "Easy Dutch Episode 12 — Note cultural references." },
+                    { day: 48, grammar: false, convo: true, time: "2.5h", title: "🗣️ KIMI CONVERSATION #10",
+                      anki: "Reviews (30 min)",
+                      speaking: "Mock A2 speaking exam. I will ask official-style questions and grade your fluency. Treat this as the real test. No English.",
+                      listening: "Zeg het in het Nederlands Episode 9 — Relax and enjoy." },
+                    { day: 49, grammar: true, convo: false, time: "2.5h", title: "Teach the Grammar",
+                      anki: "Reviews + 10 new cards (30 min)",
+                      speaking: "Explain Kim Lesson 1 to an imaginary friend — entirely in Dutch. If you can teach it, you own it. Use examples, not definitions.",
+                      listening: "Bart de Pau — Review dialogue for confidence." },
+                    { day: 50, grammar: true, convo: false, time: "2.5h", title: "Final Freewrite + Fluent Retell",
+                      anki: "Reviews (30 min)",
+                      speaking: "Write 250 words on any work topic. Then deliver a 3-minute fluent retelling without notes. This is your victory lap. Record it. 🎉",
+                      listening: "Your favorite episode from the last 50 days. Watch it again and realize how much you've grown." }
+                ]
+            }
+        };
+
+        const quotes = [
+            { text: "Mistakes are proof that you are trying.", author: "— Your Future Self" },
+            { text: "Every fluent speaker was once a beginner who refused to give up.", author: "— Language Learning Truth" },
+            { text: "De weg van een duizend mijl begint met één stap.", author: "— Chinese spreekwoord (in het Nederlands!)" },
+            { text: "Fluency is not about knowing all the words. It's about not stopping when you don't.", author: "— Kimi" },
+            { text: "Je bent beter dan gisteren. Dat is genoeg.", author: "— Daily Motto" },
+            { text: "The person who moves a mountain begins by carrying away small stones.", author: "— Confucius" },
+            { text: "Taal is niet wiskunde. Het is muziek. Speel mee.", author: "— Your Roadmap" },
+            { text: "Als je niet weet wat je moet zeggen, zeg dan wat je WEL weet.", author: "— Survival Strategy" }
+        ];
+
+        const convoDays = [4, 9, 14, 19, 24, 29, 34, 38, 43, 48];
+
+        let currentPhase = 1;
+        let completedDays = JSON.parse(localStorage.getItem('dutchA2_completed') || '[]');
+        let checklist = JSON.parse(localStorage.getItem('dutchA2_checklist') || '[]');
+        let streak = parseInt(localStorage.getItem('dutchA2_streak') || '0');
+        let lastStudyDate = localStorage.getItem('dutchA2_lastDate');
+
+        let timerInterval;
+        let timerSeconds = 45 * 60;
+        let timerRunning = false;
+
+        function formatTime(sec) {
+            const m = Math.floor(sec / 60).toString().padStart(2, '0');
+            const s = (sec % 60).toString().padStart(2, '0');
+            return m + ':' + s;
+        }
+
+        function openTimer() { document.getElementById('timerModal').classList.add('active'); }
+        function closeTimer() { document.getElementById('timerModal').classList.remove('active'); pauseTimer(); }
+
+        function startTimer() {
+            if (timerRunning) return;
+            timerRunning = true;
+            document.getElementById('btnStart').style.display = 'none';
+            document.getElementById('btnPause').style.display = 'inline-block';
+            timerInterval = setInterval(() => {
+                if (timerSeconds > 0) {
+                    timerSeconds--;
+                    document.getElementById('timerDisplay').textContent = formatTime(timerSeconds);
+                } else {
+                    pauseTimer();
+                    alert('⏰ Tijd is om! Goed gedaan!');
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            timerRunning = false;
+            clearInterval(timerInterval);
+            document.getElementById('btnStart').style.display = 'inline-block';
+            document.getElementById('btnPause').style.display = 'none';
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            timerSeconds = 45 * 60;
+            document.getElementById('timerDisplay').textContent = formatTime(timerSeconds);
+        }
+
+        function setTimer(min) {
+            pauseTimer();
+            timerSeconds = min * 60;
+            document.getElementById('timerDisplay').textContent = formatTime(timerSeconds);
+            document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function updateProgress() {
+            const total = 50;
+            const done = completedDays.length;
+            const grammarCount = completedDays.filter(d => {
+                for (let p = 1; p <= 4; p++) {
+                    const day = roadmapData[p].days.find(x => x.day === d);
+                    if (day && day.grammar) return true;
+                }
+                return false;
+            }).length;
+            const convoCount = completedDays.filter(d => convoDays.includes(d)).length;
+            const hours = Math.round(done * 2.3 * 10) / 10;
+            const pct = Math.round((done / total) * 100);
+
+            document.getElementById('completedDays').textContent = done;
+            document.getElementById('grammarDone').textContent = grammarCount;
+            document.getElementById('convoDone').textContent = convoCount;
+            document.getElementById('hoursTotal').textContent = hours;
+            document.getElementById('progressBar').style.width = pct + '%';
+            document.getElementById('progressText').textContent = pct + '% complete — ' + (done >= total ? 'Gefeliciteerd! 🎉' : done + ' of 50 days done');
+
+            const today = new Date().toDateString();
+            const yesterday = new Date(Date.now() - 86400000).toDateString();
+            if (lastStudyDate === today) {
+            } else if (lastStudyDate === yesterday) {
+                streak++;
+                lastStudyDate = today;
+            } else if (lastStudyDate && lastStudyDate !== today) {
+                streak = 1;
+                lastStudyDate = today;
+            } else {
+                streak = done > 0 ? 1 : 0;
+                lastStudyDate = today;
+            }
+            localStorage.setItem('dutchA2_streak', streak);
+            localStorage.setItem('dutchA2_lastDate', lastStudyDate);
+            document.getElementById('streakDisplay').textContent = '🔥 Streak: ' + streak + ' day' + (streak !== 1 ? 's' : '');
+        }
+
+        function toggleDay(dayNum) {
+            if (completedDays.includes(dayNum)) {
+                completedDays = completedDays.filter(d => d !== dayNum);
+            } else {
+                completedDays.push(dayNum);
+                if (dayNum === 25) setTimeout(() => alert('🎯 Halfway! Phase 2 complete!'), 300);
+                if (dayNum === 50) setTimeout(() => alert('🏆 50 DAYS! You are A2 fluent! Gefeliciteerd!'), 300);
+            }
+            localStorage.setItem('dutchA2_completed', JSON.stringify(completedDays));
+            updateProgress();
+            renderPhase(currentPhase);
+        }
+
+        function toggleExpand(card) { card.classList.toggle('expanded'); }
+
+        function renderPhase(phase) {
+            currentPhase = phase;
+            const container = document.getElementById('mainContainer');
+
+            document.querySelectorAll('.nav-tab').forEach(t => {
+                t.classList.toggle('active', parseInt(t.dataset.phase) === phase || (phase === 'tools' && t.dataset.phase === 'tools'));
+            });
+
+            if (phase === 'tools') { renderTools(container); return; }
+
+            const data = roadmapData[phase];
+            let html = `
+                <div class="phase-header">
+                    <h2>📍 Phase ${phase}: ${data.title}</h2>
+                    <p>${data.subtitle}</p>
+                </div>
+            `;
+
+            data.days.forEach(d => {
+                const isDone = completedDays.includes(d.day);
+                const isGrammar = d.grammar;
+                const isConvo = d.convo;
+                const cardClass = isDone ? 'completed' : '';
+                const grammarClass = isGrammar ? 'grammar-day' : '';
+                const badges = [];
+                if (isGrammar) badges.push('<span class="badge badge-grammar">📚 Grammar</span>');
+                if (isConvo) badges.push('<span class="badge badge-convo">🗣️ Convo</span>');
+                badges.push('<span class="badge badge-time">⏱️ ' + d.time + '</span>');
+
+                html += `
+                    <div class="day-card ${cardClass} ${grammarClass}" data-day="${d.day}">
+                        <div class="day-header" onclick="toggleExpand(this.parentElement)">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" class="day-checkbox" ${isDone ? 'checked' : ''} 
+                                    onclick="event.stopPropagation(); toggleDay(${d.day})" title="Mark complete">
+                            </div>
+                            <div class="day-number">Day ${d.day}</div>
+                            <div class="day-title">${d.title}</div>
+                            <div class="day-badges">${badges.join('')}</div>
+                            <div class="expand-icon">▼</div>
+                        </div>
+                        <div class="day-content">
+                            <div class="activity-block">
+                                <div class="activity-header">
+                                    <span class="activity-icon">🧠</span>
+                                    Anki Vocabulary
+                                    <span class="activity-time">30 min</span>
+                                </div>
+                                <div class="activity-desc">${d.anki}</div>
+                                <button class="timer-btn" onclick="event.stopPropagation(); openTimer()">⏱️ Start Timer</button>
+                            </div>
+                            <div class="activity-block">
+                                <div class="activity-header">
+                                    <span class="activity-icon">🎤</span>
+                                    Speaking Practice
+                                    <span class="activity-time">45–60 min</span>
+                                </div>
+                                <div class="activity-desc">${d.speaking}</div>
+                                <button class="timer-btn" onclick="event.stopPropagation(); openTimer()">⏱️ Start Timer</button>
+                            </div>
+                            <div class="activity-block">
+                                <div class="activity-header">
+                                    <span class="activity-icon">🎧</span>
+                                    Listening Immersion
+                                    <span class="activity-time">30–45 min</span>
+                                </div>
+                                <div class="activity-desc">${d.listening}</div>
+                                <button class="timer-btn" onclick="event.stopPropagation(); openTimer()">⏱️ Start Timer</button>
+                            </div>
+                            ${isGrammar ? `
+                            <div class="activity-block" style="background: #FFF3E0;">
+                                <div class="activity-header">
+                                    <span class="activity-icon">📖</span>
+                                    Grammar: Learn Dutch with Kim
+                                    <span class="activity-time">30–45 min</span>
+                                </div>
+                                <div class="activity-desc">Complete the assigned Kim lesson. Focus on understanding the pattern, not memorizing rules. Immediately use the grammar in 3 spoken sentences.</div>
+                                <button class="timer-btn" onclick="event.stopPropagation(); openTimer()">⏱️ Start Timer</button>
+                            </div>` : ''}
+                            ${isConvo ? `
+                            <div class="activity-block" style="background: #E3F2FD;">
+                                <div class="activity-header">
+                                    <span class="activity-icon">💬</span>
+                                    Kimi Conversation Session
+                                    <span class="activity-time">20–30 min</span>
+                                </div>
+                                <div class="activity-desc">
+                                    <strong>How to start:</strong> Message Kimi with "Dutch conversation session — Day ${d.day}".<br>
+                                    <strong>Format:</strong> Roleplay scenario. Speak Dutch for 20–30 minutes.<br>
+                                    <strong>Correction style:</strong> Flow first, then 2–3 key patterns at the end.<br>
+                                    <strong>Post-session:</strong> Write down 3 new phrases and 1 grammar pattern to drill before next session.
+                                </div>
+                            </div>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function renderTools(container) {
+            const checklistItems = [
+                "Download Anki & install Dutch A2 sentence deck",
+                "Set new cards to 10–15 per day (full sentences only)",
+                "Switch phone system language to Dutch",
+                "Subscribe to Easy Dutch on YouTube",
+                "Subscribe to NOS Jeugdjournaal",
+                "Download 3 episodes of Zeg het in het Nederlands podcast",
+                "Create 'Mijn Fouten' doc for error logging",
+                "Create 'Mijn Zinnen' doc for personal phrases",
+                "Print or bookmark this roadmap",
+                "Schedule your first Kimi conversation (Day 4)"
+            ];
+
+            let html = `
+                <div class="phase-header">
+                    <h2>🛠️ Tools, Tips & Motivation</h2>
+                    <p>Everything you need to stay consistent and maximize results.</p>
+                </div>
+
+                <div class="motivation-box">
+                    <div class="quote" id="quoteText">"${quotes[0].text}"</div>
+                    <div class="author" id="quoteAuthor">${quotes[0].author}</div>
+                    <button class="refresh-quote" onclick="newQuote()">🔄 New Quote</button>
+                </div>
+
+                <div class="tool-card">
+                    <h3>✅ Quick-Start Checklist</h3>
+            `;
+
+            checklistItems.forEach((item, i) => {
+                const checked = checklist.includes(i) ? 'checked' : '';
+                const checkedClass = checklist.includes(i) ? 'checked' : '';
+                html += `
+                    <div class="checklist-item ${checkedClass}">
+                        <input type="checkbox" id="chk${i}" ${checked} onchange="toggleChecklist(${i})">
+                        <label for="chk${i}">${item}</label>
+                    </div>
+                `;
+            });
+
+            html += `</div>
+
+                <div class="tool-card">
+                    <h3>📅 Conversation Schedule</h3>
+                    <p style="color: var(--text-light); margin-bottom: 0.75rem;">10 sessions with Kimi built into the roadmap. Message me to begin.</p>
+                    <div class="convo-grid">
+            `;
+
+            convoDays.forEach((day, i) => {
+                const done = completedDays.includes(day);
+                const statusClass = done ? 'completed' : (completedDays.filter(d => d < day).length >= day - 5 ? 'upcoming' : '');
+                html += `
+                    <div class="convo-slot ${statusClass}">
+                        <span class="day-num">#${i+1}</span>
+                        Day ${day}
+                    </div>
+                `;
+            });
+
+            html += `</div></div>
+
+                <div class="tool-card">
+                    <h3>🔥 Motivation Engine</h3>
+                    <ul>
+                        <li><strong>Never Zero Rule:</strong> Bad day? Minimum 25 min: 15 min Anki + 5 min speaking + 5 min listening. Keep the chain.</li>
+                        <li><strong>Chain Calendar:</strong> Cross off each day. Don't break the chain. If you miss, write the reason in Dutch and resume.</li>
+                        <li><strong>Weekly Win Journal:</strong> Every Sunday, write in Dutch: "Deze week heb ik geleerd..." List 3 new abilities.</li>
+                        <li><strong>Phone Reframe:</strong> Stop saying "I need to study." Say "I need to plan my workweek — in Dutch."</li>
+                        <li><strong>Error Celebration:</strong> Every mistake in conversation = "Goed fout!" Your brain is testing the system.</li>
+                        <li><strong>Off-Day Deep Dives:</strong> Use extra time for longer conversations, binge-watching, or 10-min voice memos.</li>
+                        <li><strong>Internal Monologue:</strong> Set phone to Dutch. Narrate cooking, showering, commuting. Write 5 missing words nightly.</li>
+                    </ul>
+                </div>
+
+                <div class="tool-card">
+                    <h3>📚 Listening Stack by Phase</h3>
+                    <ul>
+                        <li><strong>Phase 1:</strong> Easy Dutch (primary) · NOS Jeugdjournaal · DutchPod101 Lower Intermediate</li>
+                        <li><strong>Phase 2:</strong> Zeg het in het Nederlands (primary) · Echt Gebeurd (easy episodes) · Easy Dutch 4–7</li>
+                        <li><strong>Phase 3:</strong> NOS Journaal (main news) · Zeg het in het Nederlands · Easy Dutch 8–10</li>
+                        <li><strong>Phase 4:</strong> Zeg het in het Nederlands + NOS Journaal · Re-watch Easy Dutch without subtitles · DutchPod101 review</li>
+                    </ul>
+                </div>
+
+                <div class="tool-card">
+                    <h3>⏱️ Daily Architecture</h3>
+                    <table style="width:100%; border-collapse: collapse; font-size: 0.9rem; color: var(--text-light);">
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 0.5rem; font-weight: 600;">Morning</td>
+                            <td style="padding: 0.5rem;">30 min</td>
+                            <td style="padding: 0.5rem;">Anki reviews + 10 new sentence cards</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 0.5rem; font-weight: 600;">Mid-Day</td>
+                            <td style="padding: 0.5rem;">45–60 min</td>
+                            <td style="padding: 0.5rem;">Speaking Drill (+ Kim grammar on grammar days)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem; font-weight: 600;">Evening</td>
+                            <td style="padding: 0.5rem;">30–45 min</td>
+                            <td style="padding: 0.5rem;">Listening immersion (video/podcast)</td>
+                        </tr>
+                    </table>
+                    <p style="margin-top: 0.75rem; font-size: 0.85rem; color: var(--text-light);">
+                        <strong>Off-Day Bonus:</strong> Add 20 min extra conversation or a full podcast episode.
+                    </p>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function toggleChecklist(index) {
+            if (checklist.includes(index)) {
+                checklist = checklist.filter(i => i !== index);
+            } else {
+                checklist.push(index);
+            }
+            localStorage.setItem('dutchA2_checklist', JSON.stringify(checklist));
+            renderTools(document.getElementById('mainContainer'));
+        }
+
+        function newQuote() {
+            const q = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('quoteText').textContent = '"' + q.text + '"';
+            document.getElementById('quoteAuthor').textContent = q.author;
+        }
+
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const phase = tab.dataset.phase === 'tools' ? 'tools' : parseInt(tab.dataset.phase);
+                renderPhase(phase);
+            });
+        });
+
+        document.getElementById('btnStart').addEventListener('click', startTimer);
+        document.getElementById('btnPause').addEventListener('click', pauseTimer);
+        document.getElementById('btnReset').addEventListener('click', resetTimer);
+        document.getElementById('btnClose').addEventListener('click', closeTimer);
+
+        document.querySelectorAll('.preset-btn').forEach(btn => {
+            btn.addEventListener('click', () => setTimer(parseInt(btn.dataset.min)));
+        });
+
+        document.getElementById('timerModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('timerModal')) closeTimer();
+        });
+
+        updateProgress();
+        renderPhase(1);
+    </script>
+</body>
+</html>
