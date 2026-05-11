@@ -582,6 +582,15 @@
         ::-webkit-scrollbar-track { background: var(--cream); }
         ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 4px; }
 
+        .header-meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            align-items: center;
+            margin-top: 0.75rem;
+        }
+
         .streak-display {
             display: inline-flex;
             align-items: center;
@@ -592,7 +601,51 @@
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
-            margin-top: 0.5rem;
+        }
+
+        .account-btn {
+            background: rgba(255,255,255,0.18);
+            border: 1px solid rgba(255,255,255,0.35);
+            color: white;
+            padding: 0.4rem 0.85rem;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .account-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-1px);
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 14px;
+            border: 1px solid #ddd;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .modal-label {
+            display: block;
+            text-align: left;
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+            color: var(--blue);
+        }
+
+        .account-actions {
+            display: grid;
+            gap: 0.75rem;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .account-feedback {
+            color: var(--text);
+            font-size: 0.9rem;
+            min-height: 1.2rem;
         }
     </style>
 </head>
@@ -600,7 +653,10 @@
     <div class="header">
         <h1>🇳🇱 Dutch A2 Fluency Roadmap</h1>
         <p>50 Days · Speaking First · Learn Dutch with Kim</p>
-        <div class="streak-display" id="streakDisplay">🔥 Streak: 0 days</div>
+        <div class="header-meta">
+            <div class="streak-display" id="streakDisplay">🔥 Streak: 0 days</div>
+            <button class="account-btn" id="accountButton" onclick="openAccountModal()">Sync Account</button>
+        </div>
     </div>
 
     <div class="progress-section">
@@ -670,6 +726,23 @@
                 <button class="btn-reset" id="btnReset">Reset</button>
                 <button class="btn-close" id="btnClose">Close</button>
             </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="accountModal">
+        <div class="modal">
+            <h3>🔐 Sync Your Progress</h3>
+            <p id="accountHelpText">Create a sync code to keep progress across devices, or enter an existing code to load your account.</p>
+            <label class="modal-label" for="accountNameInput">Display name</label>
+            <input class="modal-input" type="text" id="accountNameInput" placeholder="Your name">
+            <label class="modal-label" for="accountCodeInput">Existing sync code</label>
+            <input class="modal-input" type="text" id="accountCodeInput" placeholder="Enter code from another device">
+            <div class="account-actions">
+                <button class="btn-start" id="btnCreateAccount">Create New Account</button>
+                <button class="btn-pause" id="btnUseAccount">Use Existing Code</button>
+                <button class="btn-reset" id="btnCloseAccount">Close</button>
+            </div>
+            <div class="account-feedback" id="accountFeedback"></div>
         </div>
     </div>
 
@@ -914,11 +987,154 @@
 
         const convoDays = [4, 9, 14, 19, 24, 29, 34, 38, 43, 48];
 
+        const backendUrl = '/api';
+        const userIdKey = 'dutchA2_userId';
+        const accountCodeKey = 'dutchA2_accountCode';
+        const userNameKey = 'dutchA2_userName';
+        let accountCode = localStorage.getItem(accountCodeKey) || '';
+        let userName = localStorage.getItem(userNameKey) || '';
+        let userId = localStorage.getItem(userIdKey) || `guest-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+        localStorage.setItem(userIdKey, userId);
+        let backendEnabled = true;
+
+        function getEffectiveUserId() {
+            return accountCode || userId;
+        }
+
         let currentPhase = 1;
         let completedDays = JSON.parse(localStorage.getItem('dutchA2_completed') || '[]');
         let checklist = JSON.parse(localStorage.getItem('dutchA2_checklist') || '[]');
         let streak = parseInt(localStorage.getItem('dutchA2_streak') || '0');
         let lastStudyDate = localStorage.getItem('dutchA2_lastDate');
+
+        async function loadBackendState() {
+            try {
+                const response = await fetch(`${backendUrl}/state?userId=${encodeURIComponent(getEffectiveUserId())}`);
+                if (!response.ok) throw new Error('Backend state request failed');
+
+                const result = await response.json();
+                if (result.state) {
+                    const serverCompleted = Array.isArray(result.state.completedDays) ? result.state.completedDays : [];
+                    const serverChecklist = Array.isArray(result.state.checklist) ? result.state.checklist : [];
+                    completedDays = Array.from(new Set([...completedDays, ...serverCompleted])).sort((a, b) => a - b);
+                    checklist = Array.from(new Set([...checklist, ...serverChecklist]));
+                    streak = Number(result.state.streak || streak);
+                    lastStudyDate = result.state.lastStudyDate || lastStudyDate;
+                    currentPhase = result.state.currentPhase || currentPhase;
+                    userName = result.state.userName || userName;
+
+                    localStorage.setItem('dutchA2_completed', JSON.stringify(completedDays));
+                    localStorage.setItem('dutchA2_checklist', JSON.stringify(checklist));
+                    localStorage.setItem('dutchA2_streak', String(streak));
+                    if (lastStudyDate) {
+                        localStorage.setItem('dutchA2_lastDate', lastStudyDate);
+                    }
+                    if (userName) {
+                        localStorage.setItem(userNameKey, userName);
+                    }
+                }
+            } catch (error) {
+                console.warn('Backend state load failed:', error);
+                backendEnabled = false;
+            }
+        }
+
+        async function saveStateToBackend() {
+            const state = {
+                completedDays,
+                checklist,
+                streak,
+                lastStudyDate,
+                currentPhase
+            };
+
+            localStorage.setItem('dutchA2_completed', JSON.stringify(completedDays));
+            localStorage.setItem('dutchA2_checklist', JSON.stringify(checklist));
+            localStorage.setItem('dutchA2_streak', String(streak));
+            if (lastStudyDate) {
+                localStorage.setItem('dutchA2_lastDate', lastStudyDate);
+            }
+
+            if (!backendEnabled) return;
+
+            try {
+                await fetch(`${backendUrl}/state`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId: getEffectiveUserId(), state: { ...state, userName } })
+                });
+            } catch (error) {
+                console.warn('Backend save failed:', error);
+                backendEnabled = false;
+            }
+        }
+
+        function updateAccountStatus() {
+            const accountButton = document.getElementById('accountButton');
+            if (!accountButton) return;
+            if (accountCode) {
+                accountButton.textContent = `Sync: ${userName || 'Saved'} (${accountCode})`;
+            } else {
+                accountButton.textContent = 'Sync Account';
+            }
+        }
+
+        function openAccountModal() {
+            document.getElementById('accountModal').classList.add('active');
+            document.getElementById('accountNameInput').value = userName || '';
+            document.getElementById('accountCodeInput').value = '';
+            document.getElementById('accountFeedback').textContent = '';
+            document.getElementById('accountHelpText').textContent = accountCode ?
+                'Your account is connected. Enter a code to switch to another account.' :
+                'Create a sync code to keep progress across devices, or enter an existing code to load an account.';
+        }
+
+        function closeAccountModal() {
+            document.getElementById('accountModal').classList.remove('active');
+        }
+
+        function generateAccountCode() {
+            return `DUTCH-${Math.random().toString(36).slice(2, 10).toUpperCase()}`;
+        }
+
+        async function createAccount() {
+            const name = document.getElementById('accountNameInput').value.trim();
+            if (!name) {
+                document.getElementById('accountFeedback').textContent = 'Enter your name to create a sync account.';
+                return;
+            }
+            accountCode = generateAccountCode();
+            userName = name;
+            localStorage.setItem(accountCodeKey, accountCode);
+            localStorage.setItem(userNameKey, userName);
+            await saveStateToBackend();
+            updateAccountStatus();
+            document.getElementById('accountFeedback').textContent = `Created! Your sync code is ${accountCode}. Save it for another device.`;
+        }
+
+        async function useExistingAccount() {
+            const code = document.getElementById('accountCodeInput').value.trim().toUpperCase();
+            if (!code) {
+                document.getElementById('accountFeedback').textContent = 'Enter a sync code from another device.';
+                return;
+            }
+            accountCode = code;
+            localStorage.setItem(accountCodeKey, accountCode);
+            await loadBackendState();
+            updateAccountStatus();
+            renderPhase(currentPhase);
+            document.getElementById('accountFeedback').textContent = `Loaded account ${accountCode}.`;
+        }
+
+        async function initApp() {
+            await loadBackendState();
+            updateAccountStatus();
+            updateProgress();
+            renderPhase(currentPhase);
+            if (!accountCode) {
+                openAccountModal();
+            }
+        }
 
         let timerInterval;
         let timerSeconds = 45 * 60;
@@ -1007,6 +1223,9 @@
             localStorage.setItem('dutchA2_streak', streak);
             localStorage.setItem('dutchA2_lastDate', lastStudyDate);
             document.getElementById('streakDisplay').textContent = '🔥 Streak: ' + streak + ' day' + (streak !== 1 ? 's' : '');
+            if (backendEnabled) {
+                void saveStateToBackend();
+            }
         }
 
         function toggleDay(dayNum) {
@@ -1246,6 +1465,9 @@
             }
             localStorage.setItem('dutchA2_checklist', JSON.stringify(checklist));
             renderTools(document.getElementById('mainContainer'));
+            if (backendEnabled) {
+                void saveStateToBackend();
+            }
         }
 
         function newQuote() {
@@ -1265,6 +1487,9 @@
         document.getElementById('btnPause').addEventListener('click', pauseTimer);
         document.getElementById('btnReset').addEventListener('click', resetTimer);
         document.getElementById('btnClose').addEventListener('click', closeTimer);
+        document.getElementById('btnCreateAccount').addEventListener('click', createAccount);
+        document.getElementById('btnUseAccount').addEventListener('click', useExistingAccount);
+        document.getElementById('btnCloseAccount').addEventListener('click', closeAccountModal);
 
         document.querySelectorAll('.preset-btn').forEach(btn => {
             btn.addEventListener('click', () => setTimer(parseInt(btn.dataset.min)));
@@ -1274,8 +1499,11 @@
             if (e.target === document.getElementById('timerModal')) closeTimer();
         });
 
-        updateProgress();
-        renderPhase(1);
+        document.getElementById('accountModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('accountModal')) closeAccountModal();
+        });
+
+        initApp();
     </script>
 </body>
 </html>

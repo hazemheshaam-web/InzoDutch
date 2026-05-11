@@ -1,0 +1,17 @@
+const express = require('express');
+const path = require('path');
+
+const app = express();
+const PORT = 3000;
+
+// Serve static files
+app.use(express.static(__dirname));
+
+// Main route
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dutchapp.html'));
+});
+
+app.listen(PORT, () => {
+    console.log(`Server listening on http://localhost:${PORT}`);
+});
