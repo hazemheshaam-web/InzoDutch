@@ -6,34 +6,79 @@
     <title>Dutch A2 Fluency Roadmap — 50 Days</title>
     <style>
         :root {
-            --orange: #FF6B35;
-            --dark-orange: #E85D04;
-            --blue: #004E89;
-            --light-blue: #1A659E;
-            --cream: #F7F5F3;
-            --white: #FFFFFF;
-            --text: #2D3142;
-            --text-light: #5C5C5C;
-            --success: #2ECC71;
-            --warning: #F39C12;
-            --border: #E0E0E0;
-            --shadow: 0 2px 8px rgba(0,0,0,0.08);
-            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+            --main-bg: #0F1923;
+            --card-bg: #1A2535;
+            --card-alt: #222F42;
+            --accent-primary: #E8A87C;
+            --accent-secondary: #6DB5A8;
+            --accent-tertiary: #9B89C4;
+            --accent-rose: #E87C8A;
+            --text-main: #E8E0D0;
+            --text-muted: #7A8898;
+            --border: rgba(255,255,255,0.08);
+            --shadow: 0 18px 40px rgba(0,0,0,0.25);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            min-height: 100%;
+            background: var(--main-bg);
+        }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: var(--cream);
-            color: var(--text);
+            background: var(--main-bg);
+            color: var(--text-main);
             line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        body, button, input, textarea, select {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        button, input, textarea {
+            outline: none;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .section-label,
+        .stat-box .label,
+        .phase-label,
+        .progress-text,
+        .activity-time,
+        .convo-slot .day-num,
+        .preset-btn,
+        .checklist-item label {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 0;
         }
 
         .header {
-            background: linear-gradient(135deg, var(--blue) 0%, var(--light-blue) 100%);
-            color: var(--white);
-            padding: 2rem 1rem;
+            background: linear-gradient(135deg, #0F1923 0%, #1A2535 50%, #0F1923 100%);
+            color: var(--text-main);
+            padding: 2rem 1rem 2.5rem;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -42,183 +87,190 @@
         .header::before {
             content: '';
             position: absolute;
-            top: -50%;
+            top: -40%;
             right: -10%;
-            width: 300px;
-            height: 300px;
-            background: var(--orange);
+            width: 320px;
+            height: 320px;
+            background: rgba(232,168,124,0.15);
             border-radius: 50%;
-            opacity: 0.15;
         }
 
         .header h1 {
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-            position: relative;
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            margin-bottom: 0.6rem;
         }
 
         .header p {
-            opacity: 0.9;
+            color: var(--text-muted);
             font-size: 0.95rem;
-            position: relative;
+            margin: 0.25rem 0;
+        }
+
+        .streak-display {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 1rem;
+            padding: 0.8rem 1.1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(232,168,124,0.3);
+            background: rgba(232,168,124,0.1);
+            color: var(--accent-primary);
+            font-family: 'Inconsolata', monospace;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .progress-section,
+        .phase-header,
+        .day-card,
+        .tool-card,
+        .activity-block,
+        .modal,
+        .motivational-card,
+        .convo-slot,
+        .day-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
         }
 
         .progress-section {
-            background: var(--white);
-            padding: 1.5rem;
-            margin: -1.5rem 1rem 1rem;
-            border-radius: 16px;
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            z-index: 10;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: -1.5rem auto 1rem;
+            max-width: 860px;
+            box-shadow: var(--shadow);
         }
 
         .progress-stats {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-            gap: 0.5rem;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: 1.25rem;
         }
 
         .stat-box {
-            text-align: center;
-            flex: 1;
-            min-width: 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            align-items: center;
+            justify-content: center;
+            min-height: 96px;
+            border: 1px solid rgba(232,168,124,0.18);
+            box-shadow: 0 0 0 1px rgba(232,168,124,0.04), 0 24px 60px rgba(232,168,124,0.04);
         }
 
         .stat-box .number {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--orange);
-        }
-
-        .stat-box .label {
-            font-size: 0.75rem;
-            color: var(--text-light);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--accent-primary);
         }
 
         .progress-bar-container {
-            background: var(--border);
-            border-radius: 10px;
-            height: 12px;
+            background: var(--card-alt);
+            border-radius: 99px;
+            height: 14px;
             overflow: hidden;
         }
 
         .progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, var(--orange), var(--dark-orange));
-            border-radius: 10px;
-            transition: width 0.5s ease;
             width: 0%;
+            border-radius: 99px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary));
+            transition: width 0.5s ease;
         }
 
         .progress-text {
+            margin-top: 0.9rem;
             text-align: center;
-            margin-top: 0.5rem;
-            font-size: 0.85rem;
-            color: var(--text-light);
+            color: var(--text-muted);
         }
 
         .nav-tabs {
             display: flex;
-            gap: 0.5rem;
-            padding: 0 1rem;
-            max-width: 800px;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            max-width: 860px;
             margin: 0 auto 1rem;
             overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
         }
 
         .nav-tab {
             flex: 1;
-            min-width: 100px;
-            padding: 0.75rem 0.5rem;
-            border: none;
-            background: var(--white);
-            color: var(--text-light);
+            min-width: 110px;
+            padding: 0.9rem 1rem;
+            border: 1px solid transparent;
+            background: var(--card-alt);
+            color: var(--text-main);
             border-radius: 12px;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 0.85rem;
-            transition: all 0.2s;
-            box-shadow: var(--shadow);
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: transform 0.2s, border-color 0.2s, background 0.2s;
             white-space: nowrap;
         }
 
-        .nav-tab:hover { transform: translateY(-2px); }
+        .nav-tab:hover { transform: translateY(-1px); }
 
         .nav-tab.active {
-            background: var(--orange);
-            color: var(--white);
+            background: rgba(232,168,124,0.15);
+            border: 1px solid rgba(232,168,124,0.4);
+            color: var(--accent-primary);
         }
 
         .nav-tab .phase-label {
             display: block;
-            font-size: 0.7rem;
-            opacity: 0.8;
-            font-weight: 400;
+            margin-top: 0.35rem;
+            color: var(--text-muted);
         }
 
         .container {
-            max-width: 800px;
+            max-width: 860px;
             margin: 0 auto;
             padding: 0 1rem 2rem;
+            display: grid;
+            gap: 20px;
         }
 
         .phase-header {
-            background: var(--white);
-            padding: 1.25rem;
-            border-radius: 16px;
-            margin-bottom: 1rem;
+            padding: 24px;
             box-shadow: var(--shadow);
         }
 
         .phase-header h2 {
-            color: var(--blue);
-            font-size: 1.2rem;
-            margin-bottom: 0.25rem;
+            font-size: 1.55rem;
+            margin-bottom: 0.5rem;
         }
 
         .phase-header p {
-            color: var(--text-light);
-            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
         }
 
         .day-card {
-            background: var(--white);
-            border-radius: 16px;
-            margin-bottom: 1rem;
+            border: 1px solid var(--border);
             box-shadow: var(--shadow);
             overflow: hidden;
-            transition: all 0.3s;
-            border-left: 4px solid transparent;
         }
 
-        .day-card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
+        .day-card:hover { transform: translateY(-2px); }
 
         .day-card.completed {
-            border-left-color: var(--success);
-            opacity: 0.85;
+            border-left-color: var(--accent-secondary);
         }
 
-        .day-card.completed .day-header {
-            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+        .day-card.grammar-day .day-header {
+            background: rgba(155,137,196,0.08);
+            border: 1px solid rgba(155,137,196,0.3);
         }
-
-        .day-card.grammar-day { border-left-color: var(--orange); }
 
         .day-header {
-            padding: 1rem 1.25rem;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
             display: flex;
             align-items: center;
             gap: 1rem;
@@ -227,29 +279,27 @@
         }
 
         .day-header:hover {
-            background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+            background: rgba(255,255,255,0.06);
         }
-
-        .checkbox-wrapper { position: relative; }
 
         .day-checkbox {
             width: 24px;
             height: 24px;
+            accent-color: var(--accent-secondary);
             cursor: pointer;
-            accent-color: var(--success);
         }
 
         .day-number {
-            font-weight: 700;
+            font-weight: 800;
             font-size: 1.1rem;
-            color: var(--blue);
+            color: var(--accent-primary);
             min-width: 60px;
         }
 
         .day-title {
             flex: 1;
-            font-weight: 600;
-            color: var(--text);
+            font-weight: 700;
+            color: var(--text-main);
         }
 
         .day-badges {
@@ -259,21 +309,23 @@
         }
 
         .badge {
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
+            padding: 0.25rem 0.65rem;
+            border-radius: 999px;
+            font-size: 0.72rem;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.02em;
+            color: var(--text-main);
+            background: rgba(255,255,255,0.06);
         }
 
-        .badge-grammar { background: #FFF3E0; color: var(--dark-orange); }
-        .badge-convo { background: #E3F2FD; color: var(--blue); }
-        .badge-time { background: #F3E5F5; color: #7B1FA2; }
+        .badge-grammar { background: rgba(155,137,196,0.15); color: var(--accent-tertiary); }
+        .badge-convo { background: rgba(109,181,168,0.15); color: var(--accent-secondary); }
+        .badge-time { background: rgba(232,124,138,0.15); color: var(--accent-rose); }
 
         .expand-icon {
             font-size: 1.2rem;
-            color: var(--text-light);
+            color: var(--text-muted);
             transition: transform 0.3s;
         }
 
@@ -281,8 +333,8 @@
 
         .day-content {
             display: none;
-            padding: 1.25rem;
             border-top: 1px solid var(--border);
+            padding: 24px;
         }
 
         .day-card.expanded .day-content {
@@ -297,9 +349,8 @@
 
         .activity-block {
             margin-bottom: 1rem;
-            padding: 1rem;
-            background: var(--cream);
-            border-radius: 12px;
+            background: var(--card-alt);
+            padding: 18px 20px;
         }
 
         .activity-block:last-child { margin-bottom: 0; }
@@ -307,62 +358,62 @@
         .activity-header {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--blue);
+            gap: 0.6rem;
+            margin-bottom: 0.7rem;
+            font-weight: 700;
+            color: var(--text-main);
         }
 
         .activity-icon { font-size: 1.2rem; }
 
         .activity-time {
             margin-left: auto;
+            background: rgba(255,255,255,0.04);
+            color: var(--text-muted);
+            padding: 0.3rem 0.7rem;
+            border-radius: 12px;
             font-size: 0.8rem;
-            color: var(--text-light);
-            background: var(--white);
-            padding: 0.2rem 0.5rem;
-            border-radius: 8px;
         }
 
         .activity-desc {
-            color: var(--text-light);
-            font-size: 0.9rem;
-            line-height: 1.6;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.8;
         }
 
         .activity-desc ul {
             margin-left: 1.2rem;
-            margin-top: 0.3rem;
+            margin-top: 0.4rem;
         }
 
-        .activity-desc li { margin-bottom: 0.2rem; }
+        .activity-desc li { margin-bottom: 0.25rem; }
 
         .timer-btn {
             display: inline-flex;
             align-items: center;
             gap: 0.4rem;
             margin-top: 0.5rem;
-            padding: 0.4rem 0.8rem;
-            background: var(--blue);
-            color: var(--white);
+            padding: 0.65rem 1rem;
+            background: var(--accent-secondary);
+            color: var(--text-main);
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 0.8rem;
-            font-weight: 600;
-            transition: all 0.2s;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: all 0.18s ease;
         }
 
         .timer-btn:hover {
-            background: var(--light-blue);
-            transform: scale(1.05);
+            transform: translateY(-1px);
+            background: #5aa798;
         }
 
         .modal-overlay {
             display: none;
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.5);
+            inset: 0;
+            background: rgba(0,0,0,0.6);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -372,107 +423,106 @@
         .modal-overlay.active { display: flex; }
 
         .modal {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 2rem;
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-            box-shadow: var(--shadow-lg);
-            animation: modalPop 0.3s ease;
-        }
-
-        @keyframes modalPop {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+            width: min(100%, 420px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.45);
         }
 
         .modal h3 {
-            color: var(--blue);
             margin-bottom: 1rem;
+            color: var(--text-main);
+            font-size: 1.3rem;
         }
 
         .timer-display {
-            font-size: 4rem;
-            font-weight: 700;
-            color: var(--orange);
+            font-size: clamp(3rem, 8vw, 4.5rem);
+            font-weight: 800;
+            color: var(--accent-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             font-variant-numeric: tabular-nums;
             margin: 1rem 0;
+            text-align: center;
         }
 
         .timer-controls {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.75rem;
             justify-content: center;
+            flex-wrap: wrap;
             margin-top: 1rem;
         }
 
         .timer-controls button {
-            padding: 0.6rem 1.2rem;
+            min-width: 96px;
+            padding: 0.75rem 1rem;
             border: none;
             border-radius: 10px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: transform 0.2s, opacity 0.2s;
         }
 
-        .btn-start { background: var(--success); color: white; }
-        .btn-pause { background: var(--warning); color: white; }
-        .btn-reset { background: var(--border); color: var(--text); }
-        .btn-close { background: var(--text); color: white; }
+        .btn-start { background: var(--accent-secondary); color: var(--text-main); }
+        .btn-pause { background: var(--accent-tertiary); color: var(--text-main); }
+        .btn-reset { background: rgba(255,255,255,0.08); color: var(--text-main); }
+        .btn-close { background: rgba(232,168,124,0.12); color: var(--accent-primary); }
 
         .timer-controls button:hover {
-            transform: scale(1.05);
-            opacity: 0.9;
+            transform: translateY(-1px);
+            opacity: 0.95;
         }
 
         .timer-presets {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.6rem;
             justify-content: center;
-            margin-bottom: 1rem;
             flex-wrap: wrap;
+            margin-bottom: 1rem;
         }
 
         .preset-btn {
-            padding: 0.3rem 0.8rem;
-            border: 2px solid var(--border);
-            background: var(--white);
-            border-radius: 20px;
+            padding: 0.55rem 1rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: transparent;
+            color: var(--text-main);
+            border-radius: 999px;
             cursor: pointer;
-            font-size: 0.8rem;
-            font-weight: 600;
-            transition: all 0.2s;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: all 0.2s ease;
         }
 
-        .preset-btn:hover, .preset-btn.active {
-            border-color: var(--orange);
-            color: var(--orange);
+        .preset-btn:hover,
+        .preset-btn.active {
+            border-color: rgba(232,168,124,0.4);
+            color: var(--accent-primary);
+            background: rgba(232,168,124,0.08);
         }
-
-        .tools-section { margin-top: 2rem; }
 
         .tool-card {
-            background: var(--white);
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
+            border-radius: 14px;
+            padding: 24px;
             box-shadow: var(--shadow);
         }
 
         .tool-card h3 {
-            color: var(--blue);
-            margin-bottom: 0.75rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            margin-bottom: 0.9rem;
+            font-size: 1.1rem;
+            color: var(--text-main);
         }
 
-        .tool-card ul { margin-left: 1.2rem; }
+        .tool-card ul {
+            margin-left: 1rem;
+            padding-left: 0.25rem;
+            color: var(--text-muted);
+        }
 
         .tool-card li {
-            margin-bottom: 0.4rem;
-            color: var(--text-light);
+            margin-bottom: 0.6rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
         }
 
         .checklist-item {
@@ -480,7 +530,7 @@
             align-items: center;
             gap: 0.75rem;
             padding: 0.6rem 0;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
         }
 
         .checklist-item:last-child { border-bottom: none; }
@@ -488,53 +538,55 @@
         .checklist-item input[type="checkbox"] {
             width: 20px;
             height: 20px;
-            accent-color: var(--orange);
+            accent-color: var(--accent-secondary);
             cursor: pointer;
         }
 
-        .checklist-item label { cursor: pointer; flex: 1; }
+        .checklist-item label {
+            cursor: pointer;
+            flex: 1;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
 
         .checklist-item.checked label {
             text-decoration: line-through;
-            color: var(--text-light);
+            color: var(--text-muted);
         }
 
         .motivation-box {
-            background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
+            background: var(--card-alt);
+            color: var(--text-main);
             text-align: center;
         }
 
         .motivation-box .quote {
             font-style: italic;
-            color: var(--dark-orange);
-            font-size: 1.1rem;
+            color: var(--accent-primary);
+            font-size: 1.05rem;
             margin-bottom: 0.5rem;
         }
 
         .motivation-box .author {
-            color: var(--text-light);
-            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
 
         .refresh-quote {
             margin-top: 0.75rem;
-            padding: 0.4rem 1rem;
-            background: var(--white);
-            border: 2px solid var(--orange);
-            color: var(--orange);
+            padding: 0.65rem 1rem;
+            background: transparent;
+            border: 1px solid rgba(232,168,124,0.4);
+            color: var(--accent-primary);
             border-radius: 20px;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 0.8rem;
+            font-weight: 700;
+            font-size: 0.9rem;
             transition: all 0.2s;
         }
 
         .refresh-quote:hover {
-            background: var(--orange);
-            color: var(--white);
+            background: rgba(232,168,124,0.1);
         }
 
         .convo-grid {
@@ -545,118 +597,59 @@
         }
 
         .convo-slot {
-            background: var(--cream);
-            border-radius: 12px;
-            padding: 0.75rem;
+            background: var(--card-alt);
+            padding: 1rem;
             text-align: center;
-            font-size: 0.85rem;
-            border: 2px solid transparent;
-            transition: all 0.2s;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            transition: transform 0.2s, border-color 0.2s;
         }
 
+        .convo-slot:hover { transform: translateY(-1px); }
+
         .convo-slot.completed {
-            border-color: var(--success);
-            background: #e8f5e9;
+            border-color: rgba(109,181,168,0.5);
+            background: rgba(109,181,168,0.12);
         }
 
         .convo-slot.upcoming {
-            border-color: var(--orange);
-            background: #FFF3E0;
+            border-color: rgba(232,168,124,0.4);
+            background: rgba(232,168,124,0.08);
+        }
+
+        .convo-slot.current {
+            box-shadow: 0 0 0 1px rgba(232,168,124,0.35), 0 24px 40px rgba(232,168,124,0.08);
         }
 
         .convo-slot .day-num {
-            font-weight: 700;
-            color: var(--blue);
             display: block;
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.4rem;
+            font-weight: 800;
+            color: var(--accent-primary);
         }
 
         @media (max-width: 600px) {
-            .header h1 { font-size: 1.4rem; }
+            .header h1 { font-size: 1.5rem; }
+            .nav-tabs { flex-wrap: wrap; }
+            .progress-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .tool-card, .day-card, .progress-section, .phase-header, .modal, .convo-slot { padding: 18px; }
             .day-header { flex-wrap: wrap; }
-            .day-badges { width: 100%; margin-top: 0.5rem; }
+            .day-badges { width: 100%; margin-top: 0.75rem; }
             .timer-display { font-size: 3rem; }
         }
 
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--cream); }
-        ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 4px; }
-
-        .header-meta {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.75rem;
-            align-items: center;
-            margin-top: 0.75rem;
-        }
-
-        .streak-display {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            background: linear-gradient(135deg, #FF6B35, #E85D04);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .account-btn {
-            background: rgba(255,255,255,0.18);
-            border: 1px solid rgba(255,255,255,0.35);
-            color: white;
-            padding: 0.4rem 0.85rem;
-            border-radius: 999px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: background 0.2s, transform 0.2s;
-        }
-
-        .account-btn:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-1px);
-        }
-
-        .modal-input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border-radius: 14px;
-            border: 1px solid #ddd;
-            margin-bottom: 0.75rem;
-            font-size: 1rem;
-        }
-
-        .modal-label {
-            display: block;
-            text-align: left;
-            margin-bottom: 0.25rem;
-            font-weight: 600;
-            color: var(--blue);
-        }
-
-        .account-actions {
-            display: grid;
-            gap: 0.75rem;
-            margin: 1rem 0 0.5rem;
-        }
-
-        .account-feedback {
-            color: var(--text);
-            font-size: 0.9rem;
-            min-height: 1.2rem;
-        }
+        ::-webkit-scrollbar-track { background: rgba(15,25,35,0.4); }
+        ::-webkit-scrollbar-thumb { background: rgba(232,168,124,0.5); border-radius: 999px; }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>🇳🇱 Dutch A2 Fluency Roadmap</h1>
+        <p>👤 HAZEM HESHAM</p>
         <p>50 Days · Speaking First · Learn Dutch with Kim</p>
-        <div class="header-meta">
-            <div class="streak-display" id="streakDisplay">🔥 Streak: 0 days</div>
-            <button class="account-btn" id="accountButton" onclick="openAccountModal()">Sync Account</button>
-        </div>
+        <div class="streak-display" id="streakDisplay">🔥 Streak: 0 days</div>
     </div>
 
     <div class="progress-section">
@@ -726,23 +719,6 @@
                 <button class="btn-reset" id="btnReset">Reset</button>
                 <button class="btn-close" id="btnClose">Close</button>
             </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="accountModal">
-        <div class="modal">
-            <h3>🔐 Sync Your Progress</h3>
-            <p id="accountHelpText">Create a sync code to keep progress across devices, or enter an existing code to load your account.</p>
-            <label class="modal-label" for="accountNameInput">Display name</label>
-            <input class="modal-input" type="text" id="accountNameInput" placeholder="Your name">
-            <label class="modal-label" for="accountCodeInput">Existing sync code</label>
-            <input class="modal-input" type="text" id="accountCodeInput" placeholder="Enter code from another device">
-            <div class="account-actions">
-                <button class="btn-start" id="btnCreateAccount">Create New Account</button>
-                <button class="btn-pause" id="btnUseAccount">Use Existing Code</button>
-                <button class="btn-reset" id="btnCloseAccount">Close</button>
-            </div>
-            <div class="account-feedback" id="accountFeedback"></div>
         </div>
     </div>
 
@@ -987,154 +963,11 @@
 
         const convoDays = [4, 9, 14, 19, 24, 29, 34, 38, 43, 48];
 
-        const backendUrl = '/api';
-        const userIdKey = 'dutchA2_userId';
-        const accountCodeKey = 'dutchA2_accountCode';
-        const userNameKey = 'dutchA2_userName';
-        let accountCode = localStorage.getItem(accountCodeKey) || '';
-        let userName = localStorage.getItem(userNameKey) || '';
-        let userId = localStorage.getItem(userIdKey) || `guest-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-        localStorage.setItem(userIdKey, userId);
-        let backendEnabled = true;
-
-        function getEffectiveUserId() {
-            return accountCode || userId;
-        }
-
         let currentPhase = 1;
         let completedDays = JSON.parse(localStorage.getItem('dutchA2_completed') || '[]');
         let checklist = JSON.parse(localStorage.getItem('dutchA2_checklist') || '[]');
         let streak = parseInt(localStorage.getItem('dutchA2_streak') || '0');
         let lastStudyDate = localStorage.getItem('dutchA2_lastDate');
-
-        async function loadBackendState() {
-            try {
-                const response = await fetch(`${backendUrl}/state?userId=${encodeURIComponent(getEffectiveUserId())}`);
-                if (!response.ok) throw new Error('Backend state request failed');
-
-                const result = await response.json();
-                if (result.state) {
-                    const serverCompleted = Array.isArray(result.state.completedDays) ? result.state.completedDays : [];
-                    const serverChecklist = Array.isArray(result.state.checklist) ? result.state.checklist : [];
-                    completedDays = Array.from(new Set([...completedDays, ...serverCompleted])).sort((a, b) => a - b);
-                    checklist = Array.from(new Set([...checklist, ...serverChecklist]));
-                    streak = Number(result.state.streak || streak);
-                    lastStudyDate = result.state.lastStudyDate || lastStudyDate;
-                    currentPhase = result.state.currentPhase || currentPhase;
-                    userName = result.state.userName || userName;
-
-                    localStorage.setItem('dutchA2_completed', JSON.stringify(completedDays));
-                    localStorage.setItem('dutchA2_checklist', JSON.stringify(checklist));
-                    localStorage.setItem('dutchA2_streak', String(streak));
-                    if (lastStudyDate) {
-                        localStorage.setItem('dutchA2_lastDate', lastStudyDate);
-                    }
-                    if (userName) {
-                        localStorage.setItem(userNameKey, userName);
-                    }
-                }
-            } catch (error) {
-                console.warn('Backend state load failed:', error);
-                backendEnabled = false;
-            }
-        }
-
-        async function saveStateToBackend() {
-            const state = {
-                completedDays,
-                checklist,
-                streak,
-                lastStudyDate,
-                currentPhase
-            };
-
-            localStorage.setItem('dutchA2_completed', JSON.stringify(completedDays));
-            localStorage.setItem('dutchA2_checklist', JSON.stringify(checklist));
-            localStorage.setItem('dutchA2_streak', String(streak));
-            if (lastStudyDate) {
-                localStorage.setItem('dutchA2_lastDate', lastStudyDate);
-            }
-
-            if (!backendEnabled) return;
-
-            try {
-                await fetch(`${backendUrl}/state`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ userId: getEffectiveUserId(), state: { ...state, userName } })
-                });
-            } catch (error) {
-                console.warn('Backend save failed:', error);
-                backendEnabled = false;
-            }
-        }
-
-        function updateAccountStatus() {
-            const accountButton = document.getElementById('accountButton');
-            if (!accountButton) return;
-            if (accountCode) {
-                accountButton.textContent = `Sync: ${userName || 'Saved'} (${accountCode})`;
-            } else {
-                accountButton.textContent = 'Sync Account';
-            }
-        }
-
-        function openAccountModal() {
-            document.getElementById('accountModal').classList.add('active');
-            document.getElementById('accountNameInput').value = userName || '';
-            document.getElementById('accountCodeInput').value = '';
-            document.getElementById('accountFeedback').textContent = '';
-            document.getElementById('accountHelpText').textContent = accountCode ?
-                'Your account is connected. Enter a code to switch to another account.' :
-                'Create a sync code to keep progress across devices, or enter an existing code to load an account.';
-        }
-
-        function closeAccountModal() {
-            document.getElementById('accountModal').classList.remove('active');
-        }
-
-        function generateAccountCode() {
-            return `DUTCH-${Math.random().toString(36).slice(2, 10).toUpperCase()}`;
-        }
-
-        async function createAccount() {
-            const name = document.getElementById('accountNameInput').value.trim();
-            if (!name) {
-                document.getElementById('accountFeedback').textContent = 'Enter your name to create a sync account.';
-                return;
-            }
-            accountCode = generateAccountCode();
-            userName = name;
-            localStorage.setItem(accountCodeKey, accountCode);
-            localStorage.setItem(userNameKey, userName);
-            await saveStateToBackend();
-            updateAccountStatus();
-            document.getElementById('accountFeedback').textContent = `Created! Your sync code is ${accountCode}. Save it for another device.`;
-        }
-
-        async function useExistingAccount() {
-            const code = document.getElementById('accountCodeInput').value.trim().toUpperCase();
-            if (!code) {
-                document.getElementById('accountFeedback').textContent = 'Enter a sync code from another device.';
-                return;
-            }
-            accountCode = code;
-            localStorage.setItem(accountCodeKey, accountCode);
-            await loadBackendState();
-            updateAccountStatus();
-            renderPhase(currentPhase);
-            document.getElementById('accountFeedback').textContent = `Loaded account ${accountCode}.`;
-        }
-
-        async function initApp() {
-            await loadBackendState();
-            updateAccountStatus();
-            updateProgress();
-            renderPhase(currentPhase);
-            if (!accountCode) {
-                openAccountModal();
-            }
-        }
 
         let timerInterval;
         let timerSeconds = 45 * 60;
@@ -1223,9 +1056,6 @@
             localStorage.setItem('dutchA2_streak', streak);
             localStorage.setItem('dutchA2_lastDate', lastStudyDate);
             document.getElementById('streakDisplay').textContent = '🔥 Streak: ' + streak + ' day' + (streak !== 1 ? 's' : '');
-            if (backendEnabled) {
-                void saveStateToBackend();
-            }
         }
 
         function toggleDay(dayNum) {
@@ -1465,9 +1295,6 @@
             }
             localStorage.setItem('dutchA2_checklist', JSON.stringify(checklist));
             renderTools(document.getElementById('mainContainer'));
-            if (backendEnabled) {
-                void saveStateToBackend();
-            }
         }
 
         function newQuote() {
@@ -1487,9 +1314,6 @@
         document.getElementById('btnPause').addEventListener('click', pauseTimer);
         document.getElementById('btnReset').addEventListener('click', resetTimer);
         document.getElementById('btnClose').addEventListener('click', closeTimer);
-        document.getElementById('btnCreateAccount').addEventListener('click', createAccount);
-        document.getElementById('btnUseAccount').addEventListener('click', useExistingAccount);
-        document.getElementById('btnCloseAccount').addEventListener('click', closeAccountModal);
 
         document.querySelectorAll('.preset-btn').forEach(btn => {
             btn.addEventListener('click', () => setTimer(parseInt(btn.dataset.min)));
@@ -1499,11 +1323,729 @@
             if (e.target === document.getElementById('timerModal')) closeTimer();
         });
 
-        document.getElementById('accountModal').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('accountModal')) closeAccountModal();
-        });
-
-        initApp();
+        updateProgress();
+        renderPhase(1);
     </script>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     DUTCH A2 ROADMAP — 5 FEATURE ADD-ON BLOCK
+     Automatically saves all data to localStorage
+     ═══════════════════════════════════════════════════════════════════════ -->
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inconsolata:wght@400;500;600&display=swap');
+
+  :root {
+    --amber:   #E8A87C;
+    --teal:    #6DB5A8;
+    --violet:  #9B89C4;
+    --rose:    #E87C8A;
+    --addon-bg:      #0F1923;
+    --addon-bg2:     #1A2535;
+    --addon-bg3:     #222F42;
+    --addon-text:    #E8E0D0;
+    --addon-muted:   #7A8898;
+    --addon-border:  rgba(255,255,255,0.08);
+  }
+
+  .addon-wrapper {
+    font-family: 'Syne', sans-serif;
+    background: var(--addon-bg);
+    color: var(--addon-text);
+    padding: 0 0 60px;
+  }
+
+  .addon-section-title {
+    font-family: 'Inconsolata', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--amber);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(232,168,124,0.2);
+  }
+
+  .addon-card {
+    background: var(--addon-bg2);
+    border: 1px solid var(--addon-border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 20px;
+    max-width: 860px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .addon-divider {
+    text-align: center;
+    padding: 32px 16px 8px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .addon-divider h2 {
+    font-size: clamp(18px, 3vw, 26px);
+    font-weight: 800;
+    color: var(--addon-text);
+    margin: 0 0 4px;
+  }
+  .addon-divider p {
+    color: var(--addon-muted);
+    font-size: 13px;
+    font-family: 'Inconsolata', monospace;
+    margin: 0;
+  }
+
+  .checkin-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 500px) { .checkin-grid { grid-template-columns: 1fr; } }
+
+  .checkin-item {
+    background: var(--addon-bg3);
+    border: 1px solid var(--addon-border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .checkin-item.done {
+    background: rgba(109,181,168,0.12);
+    border-color: rgba(109,181,168,0.35);
+  }
+  .checkin-box {
+    width: 26px; height: 26px;
+    border-radius: 6px;
+    border: 2px solid var(--addon-muted);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  .checkin-item.done .checkin-box {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: #0F1923;
+    font-weight: bold;
+  }
+  .checkin-label { font-size: 14px; color: var(--addon-text); font-weight: 600; }
+  .checkin-sub   { font-size: 11px; color: var(--addon-muted); font-family: 'Inconsolata', monospace; margin-top: 2px; }
+
+  .checkin-submit {
+    width: 100%;
+    background: linear-gradient(135deg, var(--teal), #3D8C7E);
+    border: none; border-radius: 10px;
+    color: #0F1923; font-family: 'Syne', sans-serif;
+    font-size: 15px; font-weight: 700;
+    padding: 14px; cursor: pointer;
+    transition: opacity 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .checkin-submit:hover { opacity: 0.85; }
+
+  .checkin-result {
+    display: none;
+    background: rgba(109,181,168,0.1);
+    border: 1px solid rgba(109,181,168,0.3);
+    border-radius: 10px;
+    padding: 16px;
+    margin-top: 14px;
+    text-align: center;
+    font-size: 15px;
+    color: var(--teal);
+    font-weight: 600;
+  }
+
+  .topic-day-input-row {
+    display: flex; gap: 10px; margin-bottom: 16px; align-items: center;
+  }
+  .topic-day-input-row label {
+    font-size: 13px; color: var(--addon-muted);
+    font-family: 'Inconsolata', monospace; white-space: nowrap;
+  }
+  .topic-day-input {
+    background: var(--addon-bg3); border: 1px solid var(--addon-border);
+    border-radius: 8px; color: var(--addon-text);
+    font-family: 'Inconsolata', monospace;
+    font-size: 15px; padding: 8px 14px;
+    width: 80px; text-align: center;
+    outline: none;
+  }
+  .topic-day-input:focus { border-color: var(--amber); }
+
+  .topic-display {
+    background: linear-gradient(135deg, rgba(232,168,124,0.1), rgba(155,137,196,0.08));
+    border: 1px solid rgba(232,168,124,0.25);
+    border-radius: 12px; padding: 20px 24px;
+  }
+  .topic-day-badge {
+    font-family: 'Inconsolata', monospace;
+    font-size: 11px; letter-spacing: 3px;
+    color: var(--amber); margin-bottom: 8px;
+  }
+  .topic-title { font-size: 22px; font-weight: 800; color: var(--addon-text); margin-bottom: 12px; }
+  .topic-sentence-starters { margin-bottom: 16px; }
+  .topic-sentence-starters p {
+    font-size: 12px; color: var(--addon-muted);
+    font-family: 'Inconsolata', monospace;
+    letter-spacing: 1px; margin-bottom: 8px;
+  }
+  .starter-chip {
+    display: inline-block;
+    background: var(--addon-bg3); border: 1px solid var(--addon-border);
+    border-radius: 20px; padding: 4px 12px;
+    font-size: 13px; color: var(--teal);
+    font-family: 'Inconsolata', monospace;
+    margin: 0 6px 6px 0;
+  }
+  .topic-mission {
+    background: rgba(109,181,168,0.08);
+    border-left: 3px solid var(--teal);
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    font-size: 13px; color: #B0C8C4;
+    line-height: 1.6;
+  }
+
+  .grammar-progress-bar {
+    background: var(--addon-bg3); border-radius: 99px;
+    height: 8px; margin-bottom: 20px; overflow: hidden;
+  }
+  .grammar-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--violet), var(--rose));
+    border-radius: 99px;
+    transition: width 0.4s ease;
+  }
+  .grammar-progress-label {
+    font-family: 'Inconsolata', monospace;
+    font-size: 12px; color: var(--violet);
+    margin-bottom: 14px;
+  }
+
+  .grammar-list { display: flex; flex-direction: column; gap: 8px; }
+  .grammar-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px 16px; border-radius: 8px;
+    background: var(--addon-bg3); border: 1px solid var(--addon-border);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .grammar-row.completed {
+    background: rgba(155,137,196,0.08);
+    border-color: rgba(155,137,196,0.3);
+    opacity: 0.65;
+  }
+  .grammar-check {
+    width: 22px; height: 22px; border-radius: 5px;
+    border: 2px solid var(--addon-muted);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; flex-shrink: 0; transition: all 0.2s;
+  }
+  .grammar-row.completed .grammar-check {
+    background: var(--violet); border-color: var(--violet); color: #fff;
+  }
+  .grammar-lesson-num {
+    font-family: 'Inconsolata', monospace;
+    font-size: 11px; color: var(--violet);
+    width: 70px; flex-shrink: 0;
+  }
+  .grammar-topic { flex: 1; font-size: 14px; color: var(--addon-text); }
+  .grammar-row.completed .grammar-topic { text-decoration: line-through; color: var(--addon-muted); }
+  .grammar-day-tag {
+    font-family: 'Inconsolata', monospace;
+    font-size: 10px; color: var(--addon-muted);
+    background: var(--addon-bg); padding: 3px 8px;
+    border-radius: 4px; flex-shrink: 0;
+  }
+
+  .error-input-row {
+    display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap;
+  }
+  .error-input {
+    flex: 1; min-width: 200px;
+    background: var(--addon-bg3); border: 1px solid var(--addon-border);
+    border-radius: 8px; color: var(--addon-text);
+    font-family: 'Inconsolata', monospace; font-size: 14px;
+    padding: 10px 14px; outline: none;
+    transition: border-color 0.2s;
+  }
+  .error-input:focus { border-color: var(--rose); }
+  .error-add-btn {
+    background: linear-gradient(135deg, var(--rose), #C94A5A);
+    border: none; border-radius: 8px;
+    color: #fff; font-family: 'Syne', sans-serif;
+    font-size: 13px; font-weight: 700;
+    padding: 10px 20px; cursor: pointer;
+    transition: opacity 0.2s; white-space: nowrap;
+  }
+  .error-add-btn:hover { opacity: 0.85; }
+
+  .error-list { display: flex; flex-direction: column; gap: 8px; }
+  .error-entry {
+    background: var(--addon-bg3); border: 1px solid rgba(232,124,138,0.2);
+    border-radius: 8px; padding: 12px 16px;
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .error-date {
+    font-family: 'Inconsolata', monospace;
+    font-size: 10px; color: var(--rose);
+    white-space: nowrap; flex-shrink: 0; margin-top: 2px;
+  }
+  .error-text { flex: 1; font-size: 14px; color: var(--addon-text); line-height: 1.5; }
+  .error-delete {
+    background: none; border: none; color: var(--addon-muted);
+    cursor: pointer; font-size: 16px; padding: 0;
+    line-height: 1; flex-shrink: 0; transition: color 0.2s;
+  }
+  .error-delete:hover { color: var(--rose); }
+  .error-empty {
+    text-align: center; color: var(--addon-muted);
+    font-family: 'Inconsolata', monospace;
+    font-size: 13px; padding: 24px;
+  }
+
+  .recording-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .recording-card {
+    background: var(--addon-bg3); border: 1px solid var(--addon-border);
+    border-radius: 10px; padding: 16px;
+    text-align: center; transition: all 0.2s;
+  }
+  .recording-card.active {
+    background: rgba(232,168,124,0.1);
+    border-color: rgba(232,168,124,0.4);
+    box-shadow: 0 0 20px rgba(232,168,124,0.1);
+  }
+  .recording-card.done-rec {
+    background: rgba(109,181,168,0.08);
+    border-color: rgba(109,181,168,0.3);
+    opacity: 0.6;
+  }
+  .rec-week {
+    font-family: 'Inconsolata', monospace;
+    font-size: 10px; letter-spacing: 2px;
+    color: var(--addon-muted); margin-bottom: 6px;
+  }
+  .rec-day {
+    font-size: 20px; font-weight: 800;
+    color: var(--addon-text); margin-bottom: 6px;
+  }
+  .recording-card.active .rec-day { color: var(--amber); }
+  .rec-topic { font-size: 12px; color: var(--addon-muted); line-height: 1.4; margin-bottom: 12px; }
+  .rec-badge {
+    display: inline-block;
+    font-family: 'Inconsolata', monospace;
+    font-size: 10px; padding: 4px 10px; border-radius: 20px;
+    background: var(--addon-bg); color: var(--addon-muted);
+  }
+  .recording-card.active .rec-badge {
+    background: rgba(232,168,124,0.2);
+    color: var(--amber);
+  }
+  .recording-card.done-rec .rec-badge {
+    background: rgba(109,181,168,0.2);
+    color: var(--teal);
+  }
+  .rec-done-btn {
+    display: block; width: 100%; margin-top: 10px;
+    background: none; border: 1px solid rgba(109,181,168,0.4);
+    border-radius: 6px; color: var(--teal);
+    font-family: 'Inconsolata', monospace; font-size: 11px;
+    padding: 6px; cursor: pointer; transition: all 0.2s;
+  }
+  .rec-done-btn:hover { background: rgba(109,181,168,0.1); }
+</style>
+
+<div class="addon-wrapper">
+
+  <div class="addon-divider">
+    <h2>📋 Daily Check-In</h2>
+    <p>COMPLETE EVERY DAY BEFORE CLOSING THE APP</p>
+  </div>
+  <div class="addon-card" id="checkin-card">
+    <div class="addon-section-title">Today's Study Log</div>
+    <div class="checkin-grid">
+      <div class="checkin-item" data-key="anki" onclick="toggleCheckin(this)">
+        <div class="checkin-box">✓</div>
+        <div>
+          <div class="checkin-label">🃏 Anki Vocab</div>
+          <div class="checkin-sub">30 min · 10–15 new words</div>
+        </div>
+      </div>
+      <div class="checkin-item" data-key="speaking" onclick="toggleCheckin(this)">
+        <div class="checkin-box">✓</div>
+        <div>
+          <div class="checkin-label">🗣️ Speaking Practice</div>
+          <div class="checkin-sub">45–60 min · spoke aloud</div>
+        </div>
+      </div>
+      <div class="checkin-item" data-key="grammar" onclick="toggleCheckin(this)">
+        <div class="checkin-box">✓</div>
+        <div>
+          <div class="checkin-label">📚 Grammar Lesson</div>
+          <div class="checkin-sub">Kim lesson + 5 sentences</div>
+        </div>
+      </div>
+      <div class="checkin-item" data-key="listening" onclick="toggleCheckin(this)">
+        <div class="checkin-box">✓</div>
+        <div>
+          <div class="checkin-label">🎧 Listening Immersion</div>
+          <div class="checkin-sub">30–45 min · podcast/video</div>
+        </div>
+      </div>
+    </div>
+    <button class="checkin-submit" onclick="submitCheckin()">✅ Save Today's Check-In</button>
+    <div class="checkin-result" id="checkin-result"></div>
+  </div>
+
+  <div class="addon-divider">
+    <h2>🗣️ Speaking Topic of the Day</h2>
+    <p>KNOW EXACTLY WHAT TO SPEAK ABOUT TODAY</p>
+  </div>
+  <div class="addon-card">
+    <div class="addon-section-title">Today's Speaking Mission</div>
+    <div class="topic-day-input-row">
+      <label>I'm on day:</label>
+      <input type="number" class="topic-day-input" id="topic-day-input" min="1" max="50" value="1" oninput="updateTopic()">
+    </div>
+    <div class="topic-display" id="topic-display"></div>
+  </div>
+
+  <div class="addon-divider">
+    <h2>📚 Grammar Lesson Tracker</h2>
+    <p>ALL 21 KIM LESSONS — TICK EACH OFF AS YOU COMPLETE</p>
+  </div>
+  <div class="addon-card">
+    <div class="addon-section-title">Lesson Progress</div>
+    <div class="grammar-progress-label" id="grammar-progress-label">0 / 21 lessons completed</div>
+    <div class="grammar-progress-bar">
+      <div class="grammar-progress-fill" id="grammar-progress-fill" style="width:0%"></div>
+    </div>
+    <div class="grammar-list" id="grammar-list"></div>
+  </div>
+
+  <div class="addon-divider">
+    <h2>📝 Fouten Schrift</h2>
+    <p>YOUR PERSONAL MISTAKE & CORRECTION LOG</p>
+  </div>
+  <div class="addon-card">
+    <div class="addon-section-title">Error Notebook — log every correction here</div>
+    <div class="error-input-row">
+      <input type="text" class="error-input" id="error-wrong" placeholder="❌ What you said / wrote wrong...">
+      <input type="text" class="error-input" id="error-correct" placeholder="✅ The correct Dutch form...">
+      <button class="error-add-btn" onclick="addError()">+ Log Error</button>
+    </div>
+    <div class="error-list" id="error-list"></div>
+  </div>
+
+  <div class="addon-divider">
+    <h2>🎙️ Weekly Recording Reminders</h2>
+    <p>RECORD YOURSELF — THIS IS YOUR PROOF OF GROWTH</p>
+  </div>
+  <div class="addon-card">
+    <div class="addon-section-title">Recording Schedule — 7 milestones across 50 days</div>
+    <div class="recording-grid" id="recording-grid"></div>
+  </div>
+
+</div>
+
+<script>
+const SPEAKING_TOPICS = [
+  { day: 1,  topic: "Introduce Yourself",       starters: ["Ik heet...", "Ik kom uit...", "Ik werk als..."],           mission: "Write 6 sentences about who you are. Name, age, job, city, hobby, one goal." },
+  { day: 2,  topic: "Describe Your Home",        starters: ["Mijn huis is...", "In mijn kamer staat...", "Ik woon in..."], mission: "Describe 3 rooms. Use adjectives: groot, klein, gezellig, modern." },
+  { day: 3,  topic: "Your Daily Routine",        starters: ["Ik word wakker om...", "Daarna...", "Elke dag..."],         mission: "Walk through your full day in Dutch, morning to night. 8+ sentences." },
+  { day: 4,  topic: "What You Ate Today",        starters: ["Vandaag at ik...", "Ik dronk...", "Het smaakte..."],        mission: "Describe breakfast, lunch, dinner. Was it lekker or niet lekker? Why?" },
+  { day: 5,  topic: "Describe a Family Member",  starters: ["Mijn... heet...", "Hij/Zij is...", "We..."],               mission: "Pick one family member. Physical description + personality + what you do together." },
+  { day: 6,  topic: "Your Favorite Place",       starters: ["Mijn favoriete plek is...", "Daar kun je...", "Ik ga er..."], mission: "Describe a place you love. Where is it? What does it look like? Why do you love it?" },
+  { day: 7,  topic: "Weekend Plans",             starters: ["Dit weekend wil ik...", "Ik ga...", "Misschien..."],        mission: "What are you doing this weekend? Use: willen, gaan, misschien, en/of." },
+  { day: 8,  topic: "Favorite Food",             starters: ["Mijn lievelingseten is...", "Ik eet graag...", "Ik lust geen..."], mission: "Talk about 3 foods you love and 2 you dislike. Use graag and niet graag." },
+  { day: 9,  topic: "Your Job / Studies",        starters: ["Ik studeer...", "Op mijn werk...", "Mijn collega's..."],   mission: "Describe your work or study in 8 sentences. What do you do daily? Do you like it?" },
+  { day: 10, topic: "The Weather Today",         starters: ["Het is vandaag...", "Buiten is het...", "Ik vind dit weer..."], mission: "Describe today's weather fully. How does it make you feel? What do you do in this weather?" },
+  { day: 11, topic: "A Person You Admire",       starters: ["Ik bewonder...", "Hij/Zij is...", "Omdat..."],             mission: "Who do you admire? Describe their appearance, personality, and what they've done." },
+  { day: 12, topic: "Your Language Journey",     starters: ["Ik leer Nederlands omdat...", "Het is moeilijk want...", "Ik kan nu..."], mission: "Why Dutch? How long have you studied? What's hard? What's easy? What's your goal?" },
+  { day: 13, topic: "Compare Two Things",        starters: ["... is groter dan...", "... vind ik leuker dan...", "Het verschil is..."], mission: "Compare two cities, two foods, two jobs, or two habits. Use comparatives: groter, beter, mooier." },
+  { day: 14, topic: "A Memory from Childhood",  starters: ["Vroeger...", "Toen ik klein was...", "Ik herinner me..."],  mission: "A specific memory. Where were you? How old? Who was there? Use the past tense." },
+  { day: 15, topic: "Something that Happened Yesterday", starters: ["Gisteren...", "Ik heb... gedaan", "Daarna..."],   mission: "Tell your full yesterday story. Use the perfectum (hebben/zijn + past participle)." },
+  { day: 16, topic: "A Movie or Show You Like", starters: ["Ik kijk graag naar...", "Het gaat over...", "Ik vind het..."], mission: "Name a show/movie. Describe the plot in Dutch. What happens? Who are the main characters?" },
+  { day: 17, topic: "Your Goals This Month",    starters: ["Deze maand wil ik...", "Ik hoop...", "Mijn doel is..."],    mission: "3 goals for this month. Why each one matters. What's your plan to reach them?" },
+  { day: 18, topic: "A Problem & Your Solution", starters: ["Het probleem is...", "Ik denk dat...", "De oplossing is..."], mission: "Describe a real problem you faced recently. What was it? How did you solve it?" },
+  { day: 19, topic: "Describe a City",          starters: ["... is een stad in...", "Daar kun je...", "Ik vind het..."], mission: "Describe Cairo or any city you know well. Attractions, food, people, atmosphere." },
+  { day: 20, topic: "Give Your Opinion",        starters: ["Ik vind dat...", "Naar mijn mening...", "Ik denk dat..."],  mission: "Pick any topic (social media, studying, food, travel). Give a full opinion with reasons." },
+  { day: 21, topic: "Narrate a Story",          starters: ["Er was eens...", "Op een dag...", "En toen..."],            mission: "Tell a short story (real or invented). Beginning, middle, end. Use past tense throughout." },
+  { day: 22, topic: "Travel & Places",          starters: ["Ik wil graag naar... reizen", "Ik was al in...", "Op vakantie..."], mission: "Talk about travel: a place you've been, a place you dream of, what you'd do there." },
+  { day: 23, topic: "Health & Habits",          starters: ["Ik sport...", "Ik probeer...", "Voor mijn gezondheid..."], mission: "Your health routine: sleep, food, exercise, stress. What do you do well? What could improve?" },
+  { day: 24, topic: "Technology & Daily Life",  starters: ["Ik gebruik elke dag...", "Zonder... kan ik niet...", "Ik vind technologie..."], mission: "How does tech shape your day? Phone, apps, work tools. Positive and negative effects." },
+  { day: 25, topic: "Future Plans & Dreams",    starters: ["Over 5 jaar wil ik...", "Ik ga... worden", "Mijn droom is..."], mission: "Where do you want to be in 5 years? Career, language, travel, life. Dream big in Dutch." },
+  { day: 26, topic: "Describe Your Personality", starters: ["Ik ben iemand die...", "Mijn vrienden zeggen dat ik...", "Ik ben niet..."], mission: "Honest self-portrait. 5 positive traits, 2 weaknesses, 1 thing you're working on." },
+  { day: 27, topic: "Work & Money",             starters: ["Geld is voor mij...", "Ik werk omdat...", "In de toekomst..."], mission: "Your relationship with work and money. What motivates you? What are your financial goals?" },
+  { day: 28, topic: "Cultural Topics",          starters: ["In Nederland...", "In Egypte...", "Het verschil is..."],    mission: "Compare Dutch culture with Egyptian culture. Food, traditions, language, lifestyle." },
+  { day: 29, topic: "A Day Trip You'd Love",    starters: ["Ik zou graag naar... gaan", "We kunnen...", "Het lijkt me leuk om..."], mission: "Plan a perfect day trip. Where? With who? What would you do, eat, see?" },
+  { day: 30, topic: "30-Day Reflection",        starters: ["De afgelopen 30 dagen...", "Ik heb geleerd...", "Nu kan ik..."], mission: "MILESTONE! Reflect on your Dutch journey so far. What's improved? What's still hard? How do you feel?" },
+  { day: 31, topic: "A Funny or Embarrassing Story", starters: ["Het was heel grappig...", "Ik schaamde me...", "Iedereen lachte..."], mission: "Tell a funny or embarrassing memory. Focus on making it vivid and expressive." },
+  { day: 32, topic: "Summarize a Podcast",      starters: ["Ik heb geluisterd naar...", "Het ging over...", "Ik heb geleerd dat..."], mission: "Summarize something you recently listened to in Dutch. Main point + your reaction." },
+  { day: 33, topic: "Advice for a Friend",      starters: ["Als ik jou was...", "Ik zou aanraden...", "Je moet..."],    mission: "Imagine a friend has a problem (stress, career, health). Give them 5 pieces of advice in Dutch." },
+  { day: 34, topic: "Debate with Yourself",     starters: ["Aan de ene kant...", "Maar aan de andere kant...", "Uiteindelijk denk ik..."], mission: "Pick a topic. Argue BOTH sides. Then give your final verdict. Use: maar, hoewel, toch." },
+  { day: 35, topic: "Extended Monologue",       starters: ["Vandaag wil ik praten over...", "Ten eerste...", "Tot slot..."], mission: "MILESTONE! Speak for 3 full minutes on any topic of your choice. Record this one. No stopping." },
+  { day: 36, topic: "Explain Something Simply", starters: ["Laat me uitleggen...", "Het werkt zo...", "Stel je voor dat..."], mission: "Explain a concept (your job, a hobby, a process) as if to a 10-year-old. Simple, clear Dutch." },
+  { day: 37, topic: "News Headline Commentary", starters: ["Ik heb gelezen dat...", "Ik vind dit...", "Naar mijn mening..."], mission: "Find one Dutch news headline. Read it. Comment on it in Dutch — what happened, your reaction." },
+  { day: 38, topic: "Your Perfect Day",         starters: ["Op mijn perfecte dag...", "Ik zou...", "Het zou beginnen met..."], mission: "Describe your perfect day from wake-up to bedtime. Every detail in Dutch." },
+  { day: 39, topic: "Things That Make You Happy", starters: ["Ik word blij van...", "Als... voel ik me goed", "Geluk is voor mij..."], mission: "List 7 things that genuinely make you happy. For each one, say WHY in a full sentence." },
+  { day: 40, topic: "A Person Who Changed You", starters: ["Deze persoon heeft...", "Dankzij hem/haar...", "Ik heb geleerd..."], mission: "Who influenced you most in life? How? What did they teach you? Use past tense throughout." },
+  { day: 41, topic: "Social Media & You",       starters: ["Ik gebruik... elke dag", "Ik vind sociale media...", "Het probleem is..."], mission: "Your relationship with social media. Which platforms? How much time? Good or bad for you?" },
+  { day: 42, topic: "Describe a Book or Film",  starters: ["Het verhaal gaat over...", "De hoofdpersoon...", "Het einde was..."], mission: "Full summary + review of a book or film you love. Plot, characters, your rating out of 10." },
+  { day: 43, topic: "What Scares You",          starters: ["Ik ben bang voor...", "Vroeger was ik...", "Ik probeer..."],  mission: "Talk about a real fear. What is it? Why? How does it affect you? What are you doing about it?" },
+  { day: 44, topic: "Learning from Mistakes",   starters: ["Ik heb een fout gemaakt...", "Ik heb geleerd dat...", "Nu doe ik..."], mission: "A real mistake you made. What happened? What did you learn? What would you do differently?" },
+  { day: 45, topic: "Dutch Language Reflection", starters: ["Nederlands is...", "Het moeilijkste is...", "Ik hou van..."], mission: "What do you love about Dutch? What's still hard? What surprised you? Speak as an insider now." },
+  { day: 46, topic: "A Letter to Future You",   starters: ["Beste Hazem...", "Over een jaar...", "Vergeet niet dat..."], mission: "Write and speak a letter to yourself one year from now. Advice, hopes, predictions — in Dutch." },
+  { day: 47, topic: "Free Choice #1",           starters: ["Vandaag wil ik praten over...", "Dit is belangrijk voor mij omdat...", "..."], mission: "Total freedom. What excites you RIGHT NOW? Speak from the heart for 3 full minutes." },
+  { day: 48, topic: "Free Choice #2",           starters: ["Laten we praten over...", "Ik vind dit interessant omdat...", "..."], mission: "Another free topic. Go deeper. Use complex sentences. Challenge yourself." },
+  { day: 49, topic: "Tell a Complete Story",    starters: ["Het begon toen...", "En toen... en daarna...", "Uiteindelijk..."], mission: "Tell a full story — real or fictional — with beginning, conflict, climax, resolution. 4+ minutes." },
+  { day: 50, topic: "50-Day Graduation Speech", starters: ["Vijftig dagen geleden...", "Ik heb geleerd...", "Ik ben trots op jezelf omdat..."], mission: "🏆 FINALE! Record a 5-minute speech about your 50-day journey. In Dutch. Start to finish. You earned this." },
+];
+
+const GRAMMAR_LESSONS = [
+  { lesson: 1,  day: 1,  topic: "Present tense — regular verbs (de basis)" },
+  { lesson: 2,  day: 3,  topic: "Pronouns & full verb conjugation" },
+  { lesson: 3,  day: 5,  topic: "Negation — niet & geen" },
+  { lesson: 4,  day: 8,  topic: "Articles: de / het / een" },
+  { lesson: 5,  day: 11, topic: "Plural nouns" },
+  { lesson: 6,  day: 13, topic: "Modal verbs: kunnen, willen, moeten" },
+  { lesson: 7,  day: 15, topic: "Word order (subject-verb-object)" },
+  { lesson: 8,  day: 18, topic: "Separable verbs" },
+  { lesson: 9,  day: 20, topic: "Possessive pronouns" },
+  { lesson: 10, day: 23, topic: "Past tense: Perfectum (hebben / zijn)" },
+  { lesson: 11, day: 25, topic: "Past participles — regular verbs (Sexy SoftKetchup)" },
+  { lesson: 12, day: 27, topic: "Irregular past participles" },
+  { lesson: 13, day: 29, topic: "Imperfectum (simple past)" },
+  { lesson: 14, day: 31, topic: "Adjective declension" },
+  { lesson: 15, day: 33, topic: "Comparative & superlative" },
+  { lesson: 16, day: 36, topic: "Prepositions of place & time" },
+  { lesson: 17, day: 38, topic: "Relative clauses" },
+  { lesson: 18, day: 41, topic: "Subordinate clauses: omdat, dat, als" },
+  { lesson: 19, day: 43, topic: "Future tense: gaan + infinitive / zullen" },
+  { lesson: 20, day: 46, topic: "Reflexive verbs" },
+  { lesson: 21, day: 49, topic: "Review & consolidation — all tenses" },
+];
+
+const RECORDING_MILESTONES = [
+  { week: 1, day: 7,  topic: "Introduce yourself — who are you in Dutch?",         prompt: "1–2 min, no prep" },
+  { week: 2, day: 14, topic: "Describe your daily routine in detail",               prompt: "2 min, free speak" },
+  { week: 3, day: 21, topic: "Tell a story in the past tense",                      prompt: "2–3 min, perfectum" },
+  { week: 4, day: 28, topic: "Give your opinion on any topic",                      prompt: "2–3 min, opinion" },
+  { week: 5, day: 35, topic: "Extended monologue — topic of your choice",           prompt: "3+ min, record & keep" },
+  { week: 6, day: 42, topic: "Describe a person, place, or film in full",           prompt: "3 min, descriptive" },
+  { week: 7, day: 50, topic: "50-Day Graduation Speech — your full journey",        prompt: "5 min, the finale 🏆" },
+];
+
+function save(key, val) { localStorage.setItem('dutch_' + key, JSON.stringify(val)); }
+function load(key, def) {
+  try { const v = localStorage.getItem('dutch_' + key); return v ? JSON.parse(v) : def; }
+  catch { return def; }
+}
+
+let checkinState = { anki: false, speaking: false, grammar: false, listening: false };
+
+(function loadCheckin() {
+  const today = new Date().toDateString();
+  const saved = load('checkin_' + today, null);
+  if (saved) {
+    checkinState = saved;
+    document.querySelectorAll('.checkin-item').forEach(el => {
+      const key = el.dataset.key;
+      if (checkinState[key]) el.classList.add('done');
+    });
+  }
+})();
+
+function toggleCheckin(el) {
+  const key = el.dataset.key;
+  checkinState[key] = !checkinState[key];
+  el.classList.toggle('done', checkinState[key]);
+}
+
+function submitCheckin() {
+  const today = new Date().toDateString();
+  save('checkin_' + today, checkinState);
+
+  const done = Object.values(checkinState).filter(Boolean).length;
+  const messages = [
+    "شغل كده! حتى لو واحدة ✅ — المهم اتحركت",
+    "نص النهارده تمام — كمّل باقي حاجتين 💪",
+    "٣ من ٤! يا سلام — يوم حلو جداً 🔥",
+    "١٠٠٪ — يوم مثالي تماماً 🏆 Geweldig!"
+  ];
+
+  const result = document.getElementById('checkin-result');
+  result.textContent = messages[Math.min(done, 3)];
+  result.style.display = 'block';
+
+  updateStreak(done >= 2);
+}
+
+function updateStreak(completed) {
+  let streak = load('streak', 0);
+  const lastDate = load('streak_date', '');
+  const today = new Date().toDateString();
+  const yesterday = new Date(Date.now() - 86400000).toDateString();
+
+  if (lastDate === today) return;
+  if (completed) {
+    streak = (lastDate === yesterday) ? streak + 1 : 1;
+    save('streak', streak);
+    save('streak_date', today);
+  }
+}
+
+function updateTopic() {
+  const day = parseInt(document.getElementById('topic-day-input').value) || 1;
+  const clamped = Math.max(1, Math.min(50, day));
+  const data = SPEAKING_TOPICS.find(t => t.day === clamped) || SPEAKING_TOPICS[0];
+  const display = document.getElementById('topic-display');
+
+  display.innerHTML = `
+    <div class="topic-day-badge">DAY ${clamped} SPEAKING TOPIC</div>
+    <div class="topic-title">${data.topic}</div>
+    <div class="topic-sentence-starters">
+      <p>SENTENCE STARTERS</p>
+      ${data.starters.map(s => `<span class="starter-chip">${s}</span>`).join('')}
+    </div>
+    <div class="topic-mission">🎯 <strong>Your mission:</strong> ${data.mission}</div>
+  `;
+
+  save('last_day', clamped);
+}
+
+(function initTopic() {
+  const saved = load('last_day', 1);
+  document.getElementById('topic-day-input').value = saved;
+  updateTopic();
+})();
+
+let completedLessons = load('grammar_done', []);
+
+function renderGrammar() {
+  const list = document.getElementById('grammar-list');
+  const count = completedLessons.length;
+  const pct = Math.round((count / 21) * 100);
+
+  document.getElementById('grammar-progress-label').textContent = `${count} / 21 lessons completed (${pct}%)`;
+  document.getElementById('grammar-progress-fill').style.width = pct + '%';
+
+  list.innerHTML = GRAMMAR_LESSONS.map(l => {
+    const done = completedLessons.includes(l.lesson);
+    return `
+      <div class="grammar-row ${done ? 'completed' : ''}" onclick="toggleLesson(${l.lesson})">
+        <div class="grammar-check">${done ? '✓' : ''}</div>
+        <div class="grammar-lesson-num">Lesson ${l.lesson}</div>
+        <div class="grammar-topic">${l.topic}</div>
+        <div class="grammar-day-tag">Day ${l.day}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function toggleLesson(num) {
+  const idx = completedLessons.indexOf(num);
+  if (idx === -1) completedLessons.push(num);
+  else completedLessons.splice(idx, 1);
+  save('grammar_done', completedLessons);
+  renderGrammar();
+}
+
+renderGrammar();
+
+let errors = load('errors', []);
+
+function renderErrors() {
+  const list = document.getElementById('error-list');
+  if (errors.length === 0) {
+    list.innerHTML = '<div class="error-empty">No errors logged yet — start adding corrections as you practice 📝</div>';
+    return;
+  }
+  list.innerHTML = errors.slice().reverse().map((e, i) => `
+    <div class="error-entry">
+      <div class="error-date">${e.date}</div>
+      <div class="error-text">
+        <span style="color:var(--rose)">❌ ${e.wrong}</span>
+        <span style="color:var(--addon-muted);margin:0 8px">→</span>
+        <span style="color:var(--teal)">✅ ${e.correct}</span>
+      </div>
+      <button class="error-delete" onclick="deleteError(${errors.length - 1 - i})">×</button>
+    </div>
+  `).join('');
+}
+
+function addError() {
+  const wrong   = document.getElementById('error-wrong').value.trim();
+  const correct = document.getElementById('error-correct').value.trim();
+  if (!wrong || !correct) return;
+
+  errors.push({
+    wrong, correct,
+    date: new Date().toLocaleDateString('nl-NL', { day: '2-digit', month: 'short' })
+  });
+  save('errors', errors);
+  document.getElementById('error-wrong').value = '';
+  document.getElementById('error-correct').value = '';
+  renderErrors();
+}
+
+function deleteError(idx) {
+  errors.splice(idx, 1);
+  save('errors', errors);
+  renderErrors();
+}
+
+document.getElementById('error-correct').addEventListener('keydown', e => {
+  if (e.key === 'Enter') addError();
+});
+
+renderErrors();
+
+let doneRecordings = load('recordings_done', []);
+
+function renderRecordings() {
+  const currentDay = load('last_day', 1);
+  const grid = document.getElementById('recording-grid');
+
+  grid.innerHTML = RECORDING_MILESTONES.map(r => {
+    const isDone    = doneRecordings.includes(r.day);
+    const isActive  = !isDone && currentDay >= r.day - 2 && currentDay <= r.day + 3;
+    const cls       = isDone ? 'done-rec' : (isActive ? 'active' : '');
+    const badge     = isDone ? '✅ Recorded' : (isActive ? '🎙️ Record Now!' : `Day ${r.day}`);
+
+    return `
+      <div class="recording-card ${cls}">
+        <div class="rec-week">WEEK ${r.week}</div>
+        <div class="rec-day">Day ${r.day}</div>
+        <div class="rec-topic">${r.topic}</div>
+        <span class="rec-badge">${badge}</span>
+        ${!isDone ? `<button class="rec-done-btn" onclick="markRecorded(${r.day})">✓ Mark as recorded</button>` : ''}
+      </div>
+    `;
+  }).join('');
+}
+
+function markRecorded(day) {
+  if (!doneRecordings.includes(day)) {
+    doneRecordings.push(day);
+    save('recordings_done', doneRecordings);
+    renderRecordings();
+  }
+}
+
+renderRecordings();
+
+document.getElementById('topic-day-input').addEventListener('input', renderRecordings);
+</script>
+
 </body>
 </html>
